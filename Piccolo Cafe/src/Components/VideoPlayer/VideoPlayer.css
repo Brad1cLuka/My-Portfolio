@@ -1,0 +1,70 @@
+.video-player {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0,0,0,0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  z-index: 1000;
+  outline: none; /* za bolje fokusiranje ako je potrebno */
+}
+
+.viewer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.main-image {
+  max-width: 80vw;
+  max-height: 80vh;
+  border-radius: 10px;
+  box-shadow: 0 0 20px #000;
+  user-select: none;
+  pointer-events: none; /* sprečava slučajno selektovanje slike */
+}
+
+.nav {
+  font-size: 2rem;
+  color: white;
+  background: none;
+  border: none;
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 0 1rem;
+  user-select: none;
+}
+
+.nav.left {
+  left: -60px;
+}
+
+.nav.right {
+  right: -60px;
+}
+
+.info-bar {
+  margin-top: 10px;
+  color: white;
+  font-size: 18px;
+  font-family: Arial, sans-serif;
+}
+
+.close-button {
+  margin-top: 20px;
+  padding: 8px 20px;
+  background-color: crimson;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  user-select: none;
+}

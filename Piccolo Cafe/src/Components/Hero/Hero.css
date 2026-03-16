@@ -1,0 +1,159 @@
+.hero {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -2;
+}
+
+/* Overlay za zamračenu pozadinu */
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(rgba(240, 216, 178, 0.6), rgba(8, 0, 58, 0.7));
+  z-index: -1;
+}
+
+.hero-text {
+  text-align: center;
+  max-width: 800px;
+  padding: 0 15px;
+  box-sizing: border-box;
+  color: white;
+  z-index: 1;
+}
+
+.hero-text h1 {
+  font-size: 60px;
+  font-weight: 600;
+  margin-bottom: 0.5em;
+}
+
+.hero-text p {
+  max-width: 700px;
+  margin: 10px auto 20px;
+  line-height: 1.4;
+  font-size: 18px;
+}
+
+.hero-text .btn {
+  display: inline-flex;
+  align-items: center;
+  background-color: #fff;
+  color: #000;
+  padding: 12px 20px;
+  border-radius: 25px;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.hero-text .btn img {
+  width: 20px;
+  height: 20px;
+  margin-left: 10px;
+}
+.hero-text .btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+  color: #111;
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: 500;
+  border-radius: 25px;
+  text-decoration: none;
+  border: 2px solid #fff;
+  transition: all 0.3s ease;
+  overflow: hidden;
+  z-index: 1;
+}
+
+/* Strelica desno */
+.hero-text .btn img {
+  width: 20px;
+  height: 20px;
+  margin-left: 10px;
+  transition: transform 0.3s ease;
+}
+
+/* Hover efekat: svetliji sjaj, lagani pomak strelice */
+.hero-text .btn:hover {
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
+  transform: translateY(-2px);
+}
+
+.hero-text .btn:hover img {
+  transform: translateX(3px);
+}
+
+/* Klik efekat: bounce */
+.hero-text .btn:active {
+  transform: scale(0.96);
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Sjaj iz centra */
+.hero-text .btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -50%;
+  width: 200%;
+  height: 100%;
+  background: linear-gradient(to right, transparent, rgba(255,255,255,0.5), transparent);
+  transform: skewX(-20deg);
+  transition: transform 0.5s ease;
+  z-index: -1;
+}
+
+.hero-text .btn:hover::before {
+  transform: translateX(50%) skewX(-20deg);
+}
+
+/*.hero-text .btn:hover {
+  background-color: #eee;
+}*/
+
+/* Responsive stilovi */
+@media (max-width: 850px) {
+  .hero-text h1 {
+    font-size: 40px;
+  }
+}
+
+@media (max-width: 650px) {
+  .hero-text h1 {
+    font-size: 30px;
+    max-width: 400px;
+    margin: auto;
+  }
+
+  .hero-text p {
+    font-size: 14px;
+    margin: 15px auto 30px;
+  }
+
+  .hero-text .btn {
+    font-size: 14px;
+    padding: 10px 18px;
+  }
+}

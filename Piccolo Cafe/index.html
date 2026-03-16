@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="sr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Un Piccolo Sorriso</title>
+
+    <!-- ✅ SEO & Accessibility -->
+    <meta name="description" content="Dečija igraonica Un Piccolo Sorriso - pogledajte naš meni, galeriju i zakazivanje termina." />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#ffffff" />
+    <meta name="author" content="Un Piccolo Sorriso" />
+
+    <!-- ✅ Open Graph -->
+    <meta property="og:title" content="Un Piccolo Sorriso" />
+    <meta property="og:description" content="Dečija igraonica, meni, galerija i kontakti." />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="/assets/preview.jpg" />
+    <meta property="og:url" content="https://example.com" />
+
+    <!-- ✅ Preload Hero Slika -->
+    <link rel="preload" as="image" href="/assets/hero.webp" type="image/webp" />
+
+    <!-- ✅ Google Fonts Non-blocking loading -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- Roboto -->
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"
+      onload="this.onload=null;this.rel='stylesheet'"
+    />
+    <noscript>
+      <link
+        href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"
+        rel="stylesheet"
+      />
+    </noscript>
+
+    <!-- Outfit -->
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap"
+      onload="this.onload=null;this.rel='stylesheet'"
+    />
+    <noscript>
+      <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap"
+        rel="stylesheet"
+      />
+    </noscript>
+
+    <!-- ✅ Inline critical CSS -->
+    <style>
+      .hero-text h1 {
+        font-size: 60px;
+        font-weight: 600;
+        margin-bottom: 0.5em;
+        color: #fff;
+        text-align: center;
+      }
+    </style>
+
+    <!-- ✅ Favicon -->
+    <link rel="icon" href="/favicon.ico" />
+  </head>
+
+  <body>
+    <div id="root"></div>
+    <!-- ✅ Lazy-load app -->
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
