@@ -42,6 +42,9 @@
   font-size: 60px;
   font-weight: 600;
   margin-bottom: 0.5em;
+  text-shadow:
+    0 0 10px rgba(255,255,255,0.2),
+    0 0 20px rgba(255,255,255,0.15);
 }
 
 .hero-text p {
@@ -51,24 +54,6 @@
   font-size: 18px;
 }
 
-.hero-text .btn {
-  display: inline-flex;
-  align-items: center;
-  background-color: #fff;
-  color: #000;
-  padding: 12px 20px;
-  border-radius: 25px;
-  text-decoration: none;
-  font-weight: 500;
-  font-size: 16px;
-  transition: background-color 0.3s ease;
-}
-
-.hero-text .btn img {
-  width: 20px;
-  height: 20px;
-  margin-left: 10px;
-}
 .hero-text .btn {
   position: relative;
   display: inline-flex;
@@ -87,7 +72,6 @@
   z-index: 1;
 }
 
-/* Strelica desno */
 .hero-text .btn img {
   width: 20px;
   height: 20px;
@@ -95,43 +79,103 @@
   transition: transform 0.3s ease;
 }
 
-/* Hover efekat: svetliji sjaj, lagani pomak strelice */
-.hero-text .btn:hover {
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
-  transform: translateY(-2px);
-}
-
-.hero-text .btn:hover img {
-  transform: translateX(3px);
-}
-
-/* Klik efekat: bounce */
-.hero-text .btn:active {
-  transform: scale(0.96);
-  box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
-}
-
-/* Sjaj iz centra */
 .hero-text .btn::before {
   content: '';
   position: absolute;
   top: 0;
-  left: -50%;
-  width: 200%;
+  left: -75%;
+  width: 150%;
   height: 100%;
-  background: linear-gradient(to right, transparent, rgba(255,255,255,0.5), transparent);
+  background: linear-gradient(
+    120deg,
+    rgba(255,255,255,0.2),
+    rgba(255,255,255,0)
+  );
   transform: skewX(-20deg);
-  transition: transform 0.5s ease;
-  z-index: -1;
+  transition: left 0.5s;
+  z-index: 1;
 }
 
 .hero-text .btn:hover::before {
-  transform: translateX(50%) skewX(-20deg);
+  left: 100%;
 }
 
-/*.hero-text .btn:hover {
-  background-color: #eee;
-}*/
+.hero-text .btn:hover {
+  transform: translateY(-4px) scale(1.03);
+  box-shadow:
+    0 10px 25px rgba(255,255,255,0.25),
+    0 0 20px rgba(255,255,255,0.2);
+  background: #ffffff;
+}
+
+.hero-text .btn:hover img {
+  transform: translateX(6px);
+}
+
+.hero-text .btn:active {
+  transform: scale(0.96);
+}
+
+/* =========================
+   ANIMATIONS
+========================= */
+
+.hero-title,
+.hero-desc,
+.hero-btn {
+  opacity: 0;
+}
+
+.show .hero-title {
+  animation: fadeUp 1s ease forwards;
+}
+
+.show .hero-desc {
+  animation: fadeUp 1s ease forwards;
+  animation-delay: 0.3s;
+}
+
+.show .hero-btn {
+  animation: buttonReveal 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-delay: 0.7s;
+}
+
+@keyframes fadeUp {
+  0% {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes buttonReveal {
+  0% {
+    opacity: 0;
+    transform: translateY(100px) scale(0.1);
+    border-radius: 50%;
+  }
+
+  40% {
+    opacity: 1;
+    transform: translateY(0) scale(0.2) rotate(180deg);
+    border-radius: 50%;
+  }
+
+  70% {
+    transform: scale(1.08) rotate(360deg);
+    border-radius: 30px;
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(360deg);
+    border-radius: 25px;
+  }
+}
 
 /* Responsive stilovi */
 @media (max-width: 850px) {

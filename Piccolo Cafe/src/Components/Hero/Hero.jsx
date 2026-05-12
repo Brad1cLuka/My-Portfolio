@@ -1,8 +1,28 @@
-import React from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import dark_arrow from '../../assets/dark-arrow.png'
 import hero from '../../assets/hero.webp'
 
 const Hero = () => {
+  const heroRef = useRef(null)
+  const [visible, setVisible] = useState(false)
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true)
+        }
+      },
+      { threshold: 0.3 }
+    )
+
+    if (heroRef.current) {
+      observer.observe(heroRef.current)
+    }
+
+    return () => observer.disconnect()
+  }, [])
+
   const handleClick = (e) => {
     e.preventDefault()
 
@@ -18,8 +38,9 @@ const Hero = () => {
 
   return (
     <section
+      ref={heroRef}
       id="hero"
-      className="hero container"
+      className={`hero container ${visible ? 'show' : ''}`}
       aria-label="Hero sekcija"
     >
       <style>{`
@@ -51,6 +72,9 @@ const Hero = () => {
           font-size: 60px;
           font-weight: 600;
           margin-bottom: 0.5em;
+          text-shadow:
+            0 0 10px rgba(255,255,255,0.2),
+            0 0 20px rgba(255,255,255,0.15);
         }
 
         .hero-text p {
@@ -63,6 +87,7 @@ const Hero = () => {
         .hero-text .btn {
           display: inline-flex;
           align-items: center;
+          justify-content: center;
           background-color: white;
           color: black;
           padding: 12px 20px;
@@ -73,6 +98,8 @@ const Hero = () => {
           position: relative;
           overflow: hidden;
           transition: all 0.3s ease;
+          border: 2px solid white;
+          z-index: 1;
         }
 
         .hero-text .btn img {
@@ -103,8 +130,81 @@ const Hero = () => {
           left: 100%;
         }
 
+        .hero-text .btn:hover {
+          transform: translateY(-4px) scale(1.03);
+          box-shadow:
+            0 10px 25px rgba(255,255,255,0.25),
+            0 0 20px rgba(255,255,255,0.2);
+          background: #ffffff;
+        }
+
         .hero-text .btn:hover img {
-          transform: translateX(5px);
+          transform: translateX(6px);
+        }
+
+        .hero-text .btn:active {
+          transform: scale(0.96);
+        }
+
+        /* =========================
+           ANIMATIONS
+        ========================= */
+
+        .hero-title,
+        .hero-desc,
+        .hero-btn {
+          opacity: 0;
+        }
+
+        .show .hero-title {
+          animation: fadeUp 1s ease forwards;
+        }
+
+        .show .hero-desc {
+          animation: fadeUp 1s ease forwards;
+          animation-delay: 0.3s;
+        }
+
+        .show .hero-btn {
+          animation: buttonReveal 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+          animation-delay: 0.7s;
+        }
+
+        @keyframes fadeUp {
+          0% {
+            opacity: 0;
+            transform: translateY(40px);
+          }
+
+          100% {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        @keyframes buttonReveal {
+          0% {
+            opacity: 0;
+            transform: translateY(100px) scale(0.1);
+            border-radius: 50%;
+          }
+
+          40% {
+            opacity: 1;
+            transform: translateY(0) scale(0.2) rotate(180deg);
+            border-radius: 50%;
+          }
+
+          70% {
+            transform: scale(1.08) rotate(360deg);
+            border-radius: 30px;
+          }
+
+          100% {
+            opacity: 1;
+            transform: scale(1) rotate(360deg);
+            border-radius: 25px;
+          }
         }
 
         @media (max-width: 850px) {
@@ -131,16 +231,18 @@ const Hero = () => {
       `}</style>
 
       <div className="hero-text">
-        <h1>Mesto gde se spajaju uživanje, zabava i porodica!</h1>
+        <h1 className="hero-title">
+          Mesto gde se spajaju uživanje, zabava i porodica!
+        </h1>
 
-        <p>
+        <p className="hero-desc">
           Uživajte u savršenoj atmosferi, dok se vaša deca zabavljaju u
           najmodernijoj igraonici u gradu!
         </p>
 
         <a
           href="#about"
-          className="btn"
+          className="btn hero-btn"
           aria-label="Pogledaj više o nama"
           onClick={handleClick}
         >
