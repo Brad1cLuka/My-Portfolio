@@ -19,21 +19,18 @@
   width: 100%;
   display: block;
   border-radius: 12px;
-  transition: transform 0.3s ease;
 }
 
-/* OVERLAY (hover content) */
+/* CAPTION */
 .caption {
   position: absolute;
   inset: 0;
-  background: rgba(0, 15, 152, 0.25); /* BLAGI EFEKAT */
+  background: rgba(0, 15, 152, 0.25);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-
   color: white;
-
   opacity: 0;
   transition: 0.3s ease;
 }
@@ -48,39 +45,39 @@
   opacity: 1;
 }
 
-.program:hover img {
-  transform: scale(1.04);
-}
-
-/* ---------------- MOBILE ---------------- */
+/* ===================== MOBILE FIX ===================== */
 @media (max-width: 650px) {
+
   .programs {
-    overflow-x: auto;
+    display: flex;
+    flex-wrap: nowrap;        /* KLJUČNO */
+    overflow-x: auto;         /* swipe */
     scroll-snap-type: x mandatory;
     gap: 15px;
     padding-bottom: 10px;
   }
 
   .program {
-    min-width: 85%;
-    flex: 0 0 auto;
+    flex: 0 0 85%;            /* KLJUČNO: ne sme 100% */
+    min-width: 85%;           /* sigurnosni fallback */
     scroll-snap-align: center;
   }
 
-  /* KLJUČNO: “FAKE HOVER” UVEK VIDLJIV */
+  /* da ne ide hover nego uvek vidi content */
   .caption {
     opacity: 1;
-    background: rgba(0, 15, 152, 0.18); /* još blaže */
+    background: rgba(0, 15, 152, 0.20);
   }
 
   .program img {
     transform: scale(1.02);
   }
 
-  /* SKRIVAM SCROLLBAR */
+  /* uklanjanje “razvaljivanja stranice” */
   .programs::-webkit-scrollbar {
     display: none;
   }
+
   .programs {
     scrollbar-width: none;
   }
