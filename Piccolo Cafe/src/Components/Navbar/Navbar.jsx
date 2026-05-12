@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import './Navbar.css'
 import logo from '../../assets/logo_beli.webp'
-import menu_icon from '../../assets/menu-icon.png'
 
 const Navbar = () => {
   const [sticky, setSticky] = useState(false)
@@ -11,7 +10,9 @@ const Navbar = () => {
     const handleScroll = () => {
       setSticky(window.scrollY > 50)
     }
+
     window.addEventListener('scroll', handleScroll)
+
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
@@ -21,10 +22,15 @@ const Navbar = () => {
 
   const handleLinkClick = (e, id) => {
     e.preventDefault()
-    setMobileMenu(false) // zatvori meni na klik (ako je mobilni)
+    setMobileMenu(false)
+
     const target = document.getElementById(id)
+
     if (target) {
-      target.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      target.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+      })
     }
   }
 
@@ -36,39 +42,57 @@ const Navbar = () => {
 
       <ul className={mobileMenu ? '' : 'hide-mobile-menu'}>
         <li>
-          <a href="#hero" onClick={(e) => handleLinkClick(e, 'hero')}>Početna</a>
+          <a href="#hero" onClick={(e) => handleLinkClick(e, 'hero')}>
+            Početna
+          </a>
         </li>
+
         <li>
-          <a href="#about" onClick={(e) => handleLinkClick(e, 'about')}>O nama</a>
+          <a href="#about" onClick={(e) => handleLinkClick(e, 'about')}>
+            O nama
+          </a>
         </li>
+
         <li>
-          <a href="#program" onClick={(e) => handleLinkClick(e, 'program')}>Meni</a>
+          <a href="#program" onClick={(e) => handleLinkClick(e, 'program')}>
+            Meni
+          </a>
         </li>
+
         <li>
-          <a href="#campus" onClick={(e) => handleLinkClick(e, 'campus')}>Galerija</a>
+          <a href="#campus" onClick={(e) => handleLinkClick(e, 'campus')}>
+            Galerija
+          </a>
         </li>
+
         <li>
-          <a href="#testimonials" onClick={(e) => handleLinkClick(e, 'testimonials')}>Utisci posetioca</a>
+          <a
+            href="#testimonials"
+            onClick={(e) => handleLinkClick(e, 'testimonials')}
+          >
+            Utisci posetioca
+          </a>
         </li>
+
         <li>
-          <a href="#contact" className="btn" onClick={(e) => handleLinkClick(e, 'contact')}>
+          <a
+            href="#contact"
+            className="btn"
+            onClick={(e) => handleLinkClick(e, 'contact')}
+          >
             Zakazivanje termina
           </a>
         </li>
       </ul>
 
-      <img
-        src={menu_icon}
-        alt="Ikona menija"
-        className="menu-icon"
+      <div
+        className={`hamburger ${mobileMenu ? 'active' : ''}`}
         onClick={toggleMenu}
-        aria-label={mobileMenu ? 'Zatvori meni' : 'Otvori meni'}
-        role="button"
-        tabIndex={0}
-        onKeyDown={(e) => {
-          if (e.key === 'Enter' || e.key === ' ') toggleMenu()
-        }}
-      />
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
     </nav>
   )
 }

@@ -1,26 +1,30 @@
 nav {
   width: 100%;
   color: #fff;
-  padding: 4px 0;
+  padding: 8px 0;
   position: fixed;
   top: 0;
   left: 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  z-index: 10;
+  z-index: 1000;
   background: transparent;
-  transition: background 0.5s ease;
+  transition: all 0.3s ease;
 }
+
 html {
   scroll-behavior: smooth;
 }
+
 .dark-nav {
   background: #5c5c5c;
+  backdrop-filter: blur(6px);
 }
 
 .logo {
-  width: 100px;
+  width: 95px;
+  transition: 0.3s ease;
 }
 
 nav ul {
@@ -31,65 +35,12 @@ nav ul {
 nav ul li {
   display: inline-block;
   list-style: none;
-  margin: 5px 20px;
-  font-size: 20px;
+  margin: 5px 18px;
+  font-size: 19px;
 }
 
-.menu-icon {
-  display: none;
-  width: 30px;
-  cursor: pointer;
-}
-/* Dugme Zakazivanje termina - animacije */
-nav ul li .btn {
-  position: relative;
-  display: inline-block;
-  padding: 6px 14px;
-  font-size: 20px;
-  color: #111;
-  background-color: #fff;
-  border: 2px solid #fff;
-  border-radius: 25px;
-  text-decoration: none;
-  transition: all 0.3s ease;
-  vertical-align: middle;
-  overflow: hidden;
-  z-index: 1;
-}
+/* LINKS */
 
-/* Hover efekat: lagani sjaj + podizanje */
-nav ul li .btn:hover {
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
-  transform: translateY(-2px);
-}
-
-/* Klik efekat: blagi bounce */
-nav ul li .btn:active {
-  transform: scale(0.96);
-  box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
-}
-
-/* Sjaj koji ostaje *unutar* dugmeta */
-nav ul li .btn::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -50%;
-  width: 200%;
-  height: 100%;
-  background: linear-gradient(to right, transparent, rgba(255,255,255,0.6), transparent);
-  transform: skewX(-20deg);
-  transition: transform 0.5s ease;
-  z-index: -1;
-}
-
-/* Aktivira sjaj na hover */
-nav ul li .btn:hover::before {
-  transform: translateX(50%) skewX(-20deg);
-}
-
-/*Novi Deo*/
-/* Animacije za regularne linkove (osim dugmeta) */
 nav ul li a:not(.btn) {
   position: relative;
   color: #fff;
@@ -97,18 +48,15 @@ nav ul li a:not(.btn) {
   transition: color 0.3s ease, transform 0.2s ease;
 }
 
-/* Hover efekat: svetlija nijansa + podizanje */
 nav ul li a:not(.btn):hover {
   color: #f0f0f0;
   transform: translateY(-2px);
 }
 
-/* Klik efekat: blagi bounce */
 nav ul li a:not(.btn):active {
   transform: scale(0.96);
 }
 
-/* Underline animacija iz centra */
 nav ul li a:not(.btn)::after {
   content: '';
   position: absolute;
@@ -117,50 +65,129 @@ nav ul li a:not(.btn)::after {
   width: 0;
   height: 2px;
   background-color: #fff;
-  transition: width 0.3s ease, left 0.3s ease;
+  transition: width 0.3s ease;
   transform: translateX(-50%);
 }
 
-/* Kad se hoveruje, raste underline iz centra */
 nav ul li a:not(.btn):hover::after {
   width: 100%;
-  left: 50%;
 }
 
-/* ------ media queries ------ */
+/* BUTTON */
 
-@media (max-width: 1000px) {
-  .logo {
-    width: 140px;
-  }
-  nav ul li {
-    margin: 10px 15px;
-  }
+nav ul li .btn {
+  position: relative;
+  display: inline-block;
+  padding: 6px 14px;
+  font-size: 18px;
+  color: #111;
+  background-color: #fff;
+  border: 2px solid #fff;
+  border-radius: 25px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  overflow: hidden;
 }
+
+nav ul li .btn:hover {
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
+  transform: translateY(-2px);
+}
+
+nav ul li .btn:active {
+  transform: scale(0.96);
+}
+
+nav ul li .btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -50%;
+  width: 200%;
+  height: 100%;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(255, 255, 255, 0.6),
+    transparent
+  );
+  transform: skewX(-20deg);
+  transition: transform 0.5s ease;
+}
+
+nav ul li .btn:hover::before {
+  transform: translateX(50%) skewX(-20deg);
+}
+
+/* HAMBURGER */
+
+.hamburger {
+  display: none;
+  width: 28px;
+  height: 22px;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+  z-index: 1001;
+}
+
+.hamburger span {
+  width: 100%;
+  height: 3px;
+  background: white;
+  border-radius: 20px;
+  transition: all 0.3s ease;
+}
+
+/* ANIMACIJA */
+
+.hamburger.active span:nth-child(1) {
+  transform: translateY(9px) rotate(45deg);
+}
+
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+  transform: translateY(-9px) rotate(-45deg);
+}
+
+/* MOBILE */
 
 @media (max-width: 840px) {
   nav {
-    padding: 15px 0;
+    padding: 10px 0;
   }
+
+  .logo {
+    width: 75px;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+
   nav ul {
     position: fixed;
     top: 0;
     right: 0;
-    bottom: 0;
+    width: 240px;
+    height: 100vh;
     background: #5c5c5c;
-    width: 200px;
-    padding-top: 70px;
-    transition: right 0.5s ease;
-    z-index: 9;
+    padding-top: 90px;
+    transition: right 0.35s ease;
+    z-index: 999;
+    box-shadow: -5px 0 20px rgba(0, 0, 0, 0.2);
   }
+
   nav ul li {
     display: block;
-    margin: 25px 40px;
+    margin: 28px 35px;
+    font-size: 18px;
   }
+
   .hide-mobile-menu {
-    right: -200px;
-  }
-  .menu-icon {
-    display: block;
+    right: -240px;
   }
 }
