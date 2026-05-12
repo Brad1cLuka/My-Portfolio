@@ -1,5 +1,6 @@
 import React from 'react'
 import dark_arrow from '../../assets/dark-arrow.png'
+import hero from '../../assets/hero.webp'
 
 const Hero = () => {
   const handleClick = (e) => {
@@ -131,22 +132,24 @@ const Hero = () => {
       </div>
 
       <img
-        src="/assets/hero.webp"
-        alt="Dečija igraonica - hero pozadina"
-        className="hero-bg"
-        fetchpriority="high"
-        decoding="async"
-        loading="eager"
-        style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          width: '100%',
-          height: '100%',
-          objectFit: 'cover',
-          zIndex: -2,
-        }}
-      />
+  src={hero}
+  alt="Dečija igraonica - hero pozadina"
+  className="hero-bg"
+  fetchpriority="high"
+  decoding="async"
+  loading="eager"
+  width="1920"
+  height="1080"
+  style={{
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '100%',
+    objectFit: 'cover',
+    zIndex: -2,
+  }}
+/>
     </section>
   )
 }
