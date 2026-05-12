@@ -1,12 +1,16 @@
 .title{
     text-align: center;
+    margin: 70px 0 30px;
+}
+
+.title-subtitle{
     color:#212EA0;
     font-size: 15px;
     font-weight: 600;
     text-transform: uppercase;
-    margin: 70px 0 30px;
 }
-.title h2{
+
+.title-heading{
     font-size: 32px;
     color:#000F38;
     margin-top: 5px;
