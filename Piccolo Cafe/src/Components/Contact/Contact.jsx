@@ -49,7 +49,7 @@ const Contact = () => {
 
       // 🔥 custom email identity
       data.append('subject', 'Nova rezervacija termina - Piccolo')
-      data.append('from_name', 'Piccolo Kontakt Forma')
+      data.append('from_name', 'Piccolo Rezervacije')
 
       const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
