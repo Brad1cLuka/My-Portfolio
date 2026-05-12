@@ -9,8 +9,7 @@ import user_4 from '../../assets/user-4.png'
 
 const Testimonials = () => {
   const slider = useRef()
-
-  const [index, setIndex] = useState(0)
+  let tx = 0
 
   const [openForm, setOpenForm] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -21,26 +20,18 @@ const Testimonials = () => {
     tekst: '',
   })
 
-  const maxIndex = 3
-
-  const update = (i) => {
-    slider.current.style.transform = `translateX(-${i * 100}%)`
-  }
-
   const slideForward = () => {
-    if (index < maxIndex) {
-      const newIndex = index + 1
-      setIndex(newIndex)
-      update(newIndex)
+    if (tx > -75) {
+      tx -= 25
     }
+    slider.current.style.transform = `translateX(${tx}%)`
   }
 
   const slideBackward = () => {
-    if (index > 0) {
-      const newIndex = index - 1
-      setIndex(newIndex)
-      update(newIndex)
+    if (tx < 0) {
+      tx += 25
     }
+    slider.current.style.transform = `translateX(${tx}%)`
   }
 
   const handleChange = (e) => {
@@ -56,23 +47,19 @@ const Testimonials = () => {
     data.append('Ime', form.ime)
     data.append('Recenzija', form.tekst)
 
-    try {
-      await fetch('https://api.web3forms.com/submit', {
-        method: 'POST',
-        body: data,
-      })
+    await fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      body: data,
+    })
 
-      setLoading(false)
-      setSent(true)
+    setLoading(false)
+    setSent(true)
 
-      setTimeout(() => {
-        setOpenForm(false)
-        setSent(false)
-        setForm({ ime: '', tekst: '' })
-      }, 2000)
-    } catch (err) {
-      setLoading(false)
-    }
+    setTimeout(() => {
+      setOpenForm(false)
+      setSent(false)
+      setForm({ ime: '', tekst: '' })
+    }, 2000)
   }
 
   return (
@@ -81,27 +68,25 @@ const Testimonials = () => {
 
         <img
           src={next_icon}
-          alt=""
           className="next-btn"
           onClick={slideForward}
         />
 
         <img
           src={back_icon}
-          alt=""
           className="back-btn"
           onClick={slideBackward}
         />
 
         <div className="slider">
           <ul ref={slider}>
+
             <li>
               <div className="slide">
                 <div className="user-info">
-                  <img src={user_1} alt="" />
+                  <img src={user_1} />
                   <div>
                     <h3>Milica Nikolić</h3>
-                    <span>Leskovac</span>
                   </div>
                 </div>
                 <p>
@@ -113,10 +98,9 @@ const Testimonials = () => {
             <li>
               <div className="slide">
                 <div className="user-info">
-                  <img src={user_3} alt="" />
+                  <img src={user_3} />
                   <div>
                     <h3>Jelena Ilić</h3>
-                    <span>Niš</span>
                   </div>
                 </div>
                 <p>
@@ -128,10 +112,9 @@ const Testimonials = () => {
             <li>
               <div className="slide">
                 <div className="user-info">
-                  <img src={user_2} alt="" />
+                  <img src={user_2} />
                   <div>
                     <h3>Stefan Jovanović</h3>
-                    <span>Beograd</span>
                   </div>
                 </div>
                 <p>
@@ -143,10 +126,9 @@ const Testimonials = () => {
             <li>
               <div className="slide">
                 <div className="user-info">
-                  <img src={user_4} alt="" />
+                  <img src={user_4} />
                   <div>
                     <h3>Marko Petrović</h3>
-                    <span>Niš</span>
                   </div>
                 </div>
                 <p>
@@ -154,10 +136,10 @@ const Testimonials = () => {
                 </p>
               </div>
             </li>
+
           </ul>
         </div>
 
-        {/* BUTTON */}
         <button
           className="btn dark-btn"
           onClick={() => setOpenForm(!openForm)}
@@ -165,7 +147,6 @@ const Testimonials = () => {
           Podeli svoje utiske
         </button>
 
-        {/* FORM */}
         {openForm && (
           <div className="review-form">
             {!sent ? (
@@ -195,6 +176,7 @@ const Testimonials = () => {
             )}
           </div>
         )}
+
       </div>
     </section>
   )
