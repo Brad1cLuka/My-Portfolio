@@ -15,8 +15,10 @@ const Contact = () => {
     'Očekivani broj dece': '',
     'Očekivani broj roditelja': '',
     Vreme: '',
+    Meni: '',
     Napomena: ''
   })
+
   const [statusMessage, setStatusMessage] = useState('')
   const [loading, setLoading] = useState(false)
 
@@ -30,7 +32,6 @@ const Contact = () => {
     setLoading(true)
     setStatusMessage('Slanje...')
 
-    // Provera da li je datum u budućnosti
     if (new Date(formData['Željeni datum']) < new Date().setHours(0, 0, 0, 0)) {
       setStatusMessage('Datum mora biti danas ili u budućnosti.')
       setLoading(false)
@@ -39,21 +40,26 @@ const Contact = () => {
 
     try {
       const data = new FormData()
+
       for (const key in formData) {
         data.append(key, formData[key])
       }
+
       data.append('access_key', '19536fb6-d2b1-4606-a434-39921e59bcd4')
+
+      // 🔥 custom email identity
+      data.append('subject', 'Nova rezervacija termina - Piccolo')
+      data.append('from_name', 'Piccolo Kontakt Forma')
 
       const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         body: data
       })
+
       const result = await response.json()
 
       if (result.success) {
-        setStatusMessage(
-          'Poruka uspešno poslata! Uskoro ćete dobiti odgovor na mejl koji ste naveli u formi!'
-        )
+        setStatusMessage('Poruka uspešno poslata! Uskoro vas kontaktiramo.')
         setFormData({
           Ime: '',
           'E-mail': '',
@@ -62,15 +68,14 @@ const Contact = () => {
           'Očekivani broj dece': '',
           'Očekivani broj roditelja': '',
           Vreme: '',
+          Meni: '',
           Napomena: ''
         })
       } else {
         setStatusMessage(result.message || 'Došlo je do greške.')
-        console.error('Greška', result)
       }
     } catch (error) {
-      setStatusMessage('Greška pri slanju forme. Molimo pokušajte kasnije.')
-      console.error(error)
+      setStatusMessage('Greška pri slanju forme.')
     } finally {
       setLoading(false)
     }
@@ -79,144 +84,94 @@ const Contact = () => {
   return (
     <section id="contact">
       <div className="contact">
+
+        {/* LEFT */}
         <div className="contact-col">
           <h3>
-            Kontaktirajte nas <img src={msg_icon} alt="Ikona poruke" />
+            Kontaktirajte nas <img src={msg_icon} alt="" />
           </h3>
+
           <p>Želite da zakažete proslavu rođendana svog deteta?</p>
+
           <p>
-            To možete učiniti putem kontakt-forme sa desne strane! Takođe naše
-            kontakt informacije možete videti i ispod!
+            To možete učiniti putem forme. Odaberite datum, vreme i meni po želji.
           </p>
+
           <ul>
-            <li>
-              <img src={mail_icon} alt="Email ikona" />
-              info@piccolo.com
-            </li>
-            <li>
-              <img src={phone_icon} alt="Telefon ikona" />
-              +38165 684-05-12
-            </li>
-            <li>
-              <img src={location_icon} alt="Lokacija ikona" />
-              Bul. Svetog Pantelejmona 91b, Niš, Srbija
-            </li>
+            <li><img src={mail_icon} alt="" /> info@piccolo.com</li>
+            <li><img src={phone_icon} alt="" /> +38165 684-05-12</li>
+            <li><img src={location_icon} alt="" /> Niš, Srbija</li>
           </ul>
         </div>
+
+        {/* RIGHT */}
         <div className="contact-col">
-          <form onSubmit={onSubmit} noValidate>
-            <label htmlFor="Ime">Vaše ime:</label>
-            <input
-              type="text"
-              id="Ime"
-              name="Ime"
-              placeholder="Unesite svoje ime"
-              required
-              value={formData.Ime}
-              onChange={onChange}
-            />
 
-            <label htmlFor="E-mail">Vaš e-mail:</label>
-            <input
-              type="email"
-              id="E-mail"
-              name="E-mail"
-              placeholder="Unesite svoj e-mail"
-              required
-              value={formData['E-mail']}
-              onChange={onChange}
-            />
+          <form onSubmit={onSubmit}>
 
-            <label htmlFor="Telefon">Vaš broj telefona:</label>
-            <input
-              type="tel"
-              id="Telefon"
-              name="Telefon"
-              placeholder="Unesite svoj broj telefona"
-              required
-              value={formData.Telefon}
-              onChange={onChange}
-              pattern="^\+?[0-9\s\-]{7,15}$"
-              title="Unesite validan broj telefona"
-            />
+            <label>Ime:</label>
+            <input name="Ime" value={formData.Ime} onChange={onChange} required />
 
-            <label htmlFor="Željeni datum">Unesite datum koji biste želeli:</label>
-            <input
-              type="date"
-              id="Željeni datum"
-              name="Željeni datum"
-              required
-              value={formData['Željeni datum']}
-              onChange={onChange}
-            />
+            <label>Email:</label>
+            <input name="E-mail" type="email" value={formData['E-mail']} onChange={onChange} required />
 
-            <label htmlFor="Očekivani broj dece">Unesite očekivani broj dece:</label>
-            <input
-              type="number"
-              id="Očekivani broj dece"
-              name="Očekivani broj dece"
-              placeholder="Unesite očekivani broj dece"
-              min={0}
-              required
-              value={formData['Očekivani broj dece']}
-              onChange={onChange}
-            />
+            <label>Telefon:</label>
+            <input name="Telefon" value={formData.Telefon} onChange={onChange} required />
 
-            <label htmlFor="Očekivani broj roditelja">
-              Unesite očekivani broj roditelja:
-            </label>
-            <input
-              type="number"
-              id="Očekivani broj roditelja"
-              name="Očekivani broj roditelja"
-              placeholder="Unesite očekivani broj roditelja"
-              min={0}
-              required
-              value={formData['Očekivani broj roditelja']}
-              onChange={onChange}
-            />
+            <label>Datum:</label>
+            <input type="date" name="Željeni datum" value={formData['Željeni datum']} onChange={onChange} required />
 
-            <fieldset>
-              <legend>Izaberite željeno vreme za proslavu</legend>
-              <div className="alignment" role="radiogroup" aria-required="true">
+            <label>Broj dece:</label>
+            <input type="number" name="Očekivani broj dece" value={formData['Očekivani broj dece']} onChange={onChange} />
+
+            <label>Broj roditelja:</label>
+            <input type="number" name="Očekivani broj roditelja" value={formData['Očekivani broj roditelja']} onChange={onChange} />
+
+            {/* TIME */}
+            <fieldset className="time-box">
+              <legend>Izaberite termin</legend>
+
+              <div className="alignment">
                 {['14H', '16H', '18H', '20H'].map((v) => (
-                  <label key={v} style={{ marginRight: '15px', cursor: 'pointer' }}>
+                  <label key={v}>
                     <input
                       type="radio"
                       name="Vreme"
                       value={v}
-                      required
                       checked={formData.Vreme === v}
                       onChange={onChange}
+                      required
                     />
-                    <span>{v.slice(0, -1)}:00</span>
+                    {v.slice(0, -1)}:00
                   </label>
                 ))}
               </div>
             </fieldset>
 
-            <label htmlFor="Napomena">Napomena:</label>
-            <textarea
-              id="Napomena"
-              name="Napomena"
-              rows="6"
-              placeholder="Poruka"
-              required
-              value={formData.Napomena}
-              onChange={onChange}
-            ></textarea>
+            {/* MENU DROPDOWN */}
+            <label>Odaberite meni:</label>
+            <select name="Meni" value={formData.Meni} onChange={onChange} required>
+              <option value="">Izaberite</option>
+              <option value="Grickalice">Grickalice</option>
+              <option value="Ono kao nekad">Ono kao nekad</option>
+              <option value="Kiflice">Kiflice</option>
+              <option value="Pica">Pica</option>
+              <option value="Piletina">Piletina</option>
+              <option value="Mini Burgeri">Mini Burgeri</option>
+            </select>
 
-            <button type="submit" className="btn dark-btn" disabled={loading}>
-              {loading ? 'Slanje...' : 'Pošalji poruku'} <img src={white_arrow} alt="strelica" />
+            <label>Napomena:</label>
+            <textarea name="Napomena" value={formData.Napomena} onChange={onChange} />
+
+            <button className="btn dark-btn" disabled={loading}>
+              {loading ? 'Slanje...' : 'Pošalji'}
+              <img src={white_arrow} alt="" />
             </button>
+
           </form>
-          <span
-            aria-live="polite"
-            role="status"
-            style={{ marginTop: '1rem', display: 'block' }}
-          >
-            {statusMessage}
-          </span>
+
+          <span>{statusMessage}</span>
+
         </div>
       </div>
     </section>
