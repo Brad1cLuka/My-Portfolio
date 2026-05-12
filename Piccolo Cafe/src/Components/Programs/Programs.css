@@ -50,20 +50,17 @@
 
   .programs {
     display: flex;
-    flex-wrap: nowrap;        /* KLJUČNO */
-    overflow-x: auto;         /* swipe */
-    scroll-snap-type: x mandatory;
-    gap: 15px;
-    padding-bottom: 10px;
+    flex-direction: column;   /* KLJUČNO */
+    overflow: visible;       /* nema swipe */
+    gap: 20px;
   }
 
   .program {
-    flex: 0 0 85%;            /* KLJUČNO: ne sme 100% */
-    min-width: 85%;           /* sigurnosni fallback */
-    scroll-snap-align: center;
+    width: 100%;             /* svaki zauzima ceo red */
+    flex: none;
   }
 
-  /* da ne ide hover nego uvek vidi content */
+  /* caption uvek vidljiv na mobile */
   .caption {
     opacity: 1;
     background: rgba(0, 15, 152, 0.20);
@@ -71,14 +68,5 @@
 
   .program img {
     transform: scale(1.02);
-  }
-
-  /* uklanjanje “razvaljivanja stranice” */
-  .programs::-webkit-scrollbar {
-    display: none;
-  }
-
-  .programs {
-    scrollbar-width: none;
   }
 }
