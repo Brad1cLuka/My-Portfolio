@@ -40,7 +40,6 @@
     opacity 0.4s ease,
     padding-top 0.4s ease,
     backdrop-filter 0.4s ease;
-  backdrop-filter: blur(0px);
 }
 
 .caption img {
@@ -54,7 +53,7 @@
   font-weight: 600;
 }
 
-/* DESKTOP HOVER */
+/* DESKTOP */
 
 .program:hover img {
   transform: scale(1.04);
@@ -67,25 +66,12 @@
   backdrop-filter: blur(3px);
 }
 
-/* MOBILE ACTIVE CARD */
-
-.program.mobile-active .caption {
-  opacity: 1;
-  padding-top: 0;
-  backdrop-filter: blur(3px);
-}
-
-.program.mobile-active img {
-  transform: scale(1.03);
-}
-
-/* MOBILE SLIDER */
+/* MOBILE */
 
 @media (max-width: 650px) {
   .programs {
     overflow-x: auto;
     scroll-snap-type: x mandatory;
-    flex-direction: row;
     justify-content: flex-start;
     gap: 18px;
     padding-bottom: 10px;
@@ -102,13 +88,19 @@
     min-width: 85%;
     flex: 0 0 auto;
     scroll-snap-align: center;
-    margin: 10px 0;
   }
 
+  /* NA MOBILNOM UVEK VIDLJIV OVERLAY */
+
   .caption {
-    opacity: 0.95;
+    opacity: 1;
     padding-top: 0;
-    background: rgba(0, 15, 152, 0.38);
+    backdrop-filter: blur(2px);
+    background: rgba(0, 15, 152, 0.35);
+  }
+
+  .program img {
+    transform: scale(1.02);
   }
 
   .caption img {
