@@ -11,19 +11,17 @@
   color: #676767;
 }
 
-/* TEXT SIDE */
+/* HEADER */
 .contact-col h3 {
   display: flex;
   align-items: center;
   gap: 10px;
 }
 
-/* LIST ICONS FIX (SMANJENE IKONICE) */
+/* DESKTOP ICONS (OSTAJE ISTO - NE DIRAMO) */
 .contact-col ul li img {
-  width: 18px;
-  height: 18px;
+  width: 25px;
   margin-right: 10px;
-  object-fit: contain;
 }
 
 /* FORM */
@@ -38,7 +36,7 @@
   border-radius: 6px;
 }
 
-/* TIME RADIO FIX */
+/* TIME RADIO */
 .time-box {
   margin: 10px 0 20px;
   border: none;
@@ -57,8 +55,12 @@
   cursor: pointer;
 }
 
-/* MOBILE FIX */
+/* ========================= */
+/*         MOBILE FIX        */
+/* ========================= */
+
 @media (max-width: 700px) {
+
   .contact {
     flex-direction: column;
   }
@@ -67,8 +69,25 @@
     width: 100%;
   }
 
+  /* radio layout fix */
   .alignment {
     flex-direction: column;
     gap: 8px;
+  }
+
+  /* 🔥 HEADER ICON (msg icon) manji samo na mobile */
+  .contact-col h3 img {
+    width: 22px;
+    height: 22px;
+  }
+
+  .contact-col h3 {
+    font-size: 20px;
+  }
+
+  /* 🔥 list icons ONLY mobile */
+  .contact-col ul li img {
+    width: 18px;
+    height: 18px;
   }
 }
