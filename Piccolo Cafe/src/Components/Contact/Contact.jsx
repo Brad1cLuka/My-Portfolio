@@ -63,9 +63,9 @@ const Contact = () => {
           Ime: '',
           'E-mail': '',
           Telefon: '',
-          'Željeni datum': '',
-          'Očekivani broj dece': '',
-          'Očekivani broj roditelja': '',
+          'Zeljeni datum': '',
+          'Ocekivani broj dece': '',
+          'Ocekivani broj roditelja': '',
           Vreme: '',
           Meni: '',
           Napomena: ''
