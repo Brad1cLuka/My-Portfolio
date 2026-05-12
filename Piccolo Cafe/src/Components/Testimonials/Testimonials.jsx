@@ -48,6 +48,8 @@ const Testimonials = () => {
       data.append('access_key', '19536fb6-d2b1-4606-a434-39921e59bcd4')
       data.append('Ime', form.ime)
       data.append('Recenzija', form.tekst)
+      data.append('subject', 'Nova recenzija - Piccolo')
+      data.append('from_name', 'Piccolo recenzije')
 
       await fetch('https://api.web3forms.com/submit', {
         method: 'POST',

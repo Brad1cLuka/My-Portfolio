@@ -48,7 +48,7 @@ const Contact = () => {
       data.append('access_key', '19536fb6-d2b1-4606-a434-39921e59bcd4')
 
       data.append('subject', 'Nova rezervacija termina - Piccolo')
-      data.append('from_name', 'Piccolo Kontakt Forma')
+      data.append('from_name', 'Piccolo rezervacije')
 
       const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
