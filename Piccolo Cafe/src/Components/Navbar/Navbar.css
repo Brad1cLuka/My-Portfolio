@@ -159,7 +159,7 @@ nav ul li .btn.nav-btn-fix {
   line-height: 1;        /* da se poravna sa tekstom */
   display: inline-flex;
   align-items: center;
-  transform: translateY(1px); /* sitno spuštanje da legne vizuelno */
+  transform: translateY(2px); /* sitno spuštanje da legne vizuelno */
 }
 /* MOBILE */
 
