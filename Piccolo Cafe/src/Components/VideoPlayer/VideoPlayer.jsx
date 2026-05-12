@@ -25,12 +25,10 @@ const galleries = {
 const VideoPlayer = ({ activeGallery, imageIndex, setActiveGallery }) => {
   const player = useRef(null)
 
-  if (!activeGallery) return null
-
-  const images = galleries[activeGallery]
+  const images = activeGallery ? galleries[activeGallery] : []
   const currentIndex = imageIndex
 
-  // 🔥 PRELOAD SVIH SLIKA KAD SE OTVORI GALERIJA
+  // ✅ PRELOAD (MORA PRE RETURN-a, bez uslovnog hook-a)
   useEffect(() => {
     if (!activeGallery) return
 
@@ -38,7 +36,10 @@ const VideoPlayer = ({ activeGallery, imageIndex, setActiveGallery }) => {
       const img = new Image()
       img.src = src
     })
-  }, [activeGallery])
+  }, [activeGallery, images])
+
+  // ako nema galerije – tek OVDE izlaziš
+  if (!activeGallery) return null
 
   const goPrev = () => {
     if (currentIndex > 0) {
