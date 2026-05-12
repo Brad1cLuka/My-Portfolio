@@ -8,138 +8,129 @@ import user_3 from '../../assets/user-3.png'
 import user_4 from '../../assets/user-4.png'
 
 const Testimonials = () => {
-  const slider = useRef()
-  let tx = 0
 
-  const [openForm, setOpenForm] = useState(false)
-  const [loading, setLoading] = useState(false)
-  const [sent, setSent] = useState(false)
+    const slider = useRef();
+    let tx = 0;
 
-  const [form, setForm] = useState({
-    ime: '',
-    tekst: '',
-  })
+    const [openForm, setOpenForm] = useState(false)
+    const [loading, setLoading] = useState(false)
+    const [sent, setSent] = useState(false)
 
-  const slideForward = () => {
-    if (tx > -75) {
-      tx -= 25
-    }
-    slider.current.style.transform = `translateX(${tx}%)`
-  }
-
-  const slideBackward = () => {
-    if (tx < 0) {
-      tx += 25
-    }
-    slider.current.style.transform = `translateX(${tx}%)`
-  }
-
-  const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value })
-  }
-
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    setLoading(true)
-
-    const data = new FormData()
-    data.append('access_key', '19536fb6-d2b1-4606-a434-39921e59bcd4')
-    data.append('Ime', form.ime)
-    data.append('Recenzija', form.tekst)
-
-    await fetch('https://api.web3forms.com/submit', {
-      method: 'POST',
-      body: data,
+    const [form, setForm] = useState({
+      ime: '',
+      tekst: ''
     })
 
-    setLoading(false)
-    setSent(true)
+    const slideForward = ()=>{
+        if(tx >-50){
+            tx -=25;
+        }
+        slider.current.style.transform = `translateX(${tx}%)`
+    }
+    
+    const slideBackward = ()=>{
+        if(tx < 0){
+            tx +=25;
+        }
+        slider.current.style.transform = `translateX(${tx}%)`
+    }
 
-    setTimeout(() => {
-      setOpenForm(false)
-      setSent(false)
-      setForm({ ime: '', tekst: '' })
-    }, 2000)
-  }
+    const handleChange = (e) => {
+      setForm({ ...form, [e.target.name]: e.target.value })
+    }
+
+    const handleSubmit = async (e) => {
+      e.preventDefault()
+      setLoading(true)
+
+      const data = new FormData()
+      data.append('access_key', '19536fb6-d2b1-4606-a434-39921e59bcd4')
+      data.append('Ime', form.ime)
+      data.append('Recenzija', form.tekst)
+
+      await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: data
+      })
+
+      setLoading(false)
+      setSent(true)
+
+      setTimeout(() => {
+        setOpenForm(false)
+        setSent(false)
+        setForm({ ime: '', tekst: '' })
+      }, 2000)
+    }
 
   return (
     <section id="testimonials">
-      <div className="testimonials">
+    <div className='testimonials'> 
 
-        <img
-          src={next_icon}
-          className="next-btn"
-          onClick={slideForward}
-        />
-
-        <img
-          src={back_icon}
-          className="back-btn"
-          onClick={slideBackward}
-        />
+        <img src={next_icon} alt="" className='next-btn' onClick={slideForward}/>
+        <img src={back_icon} alt="" className='back-btn' onClick={slideBackward}/>
 
         <div className="slider">
-          <ul ref={slider}>
+            <ul ref={slider}>
+                <li>
+                    <div className="slide">
+                        <div className="user-info">
+                            <img src={user_1} alt="" loading="lazy"/>
+                            <div>
+                                <h3>Milica Nikolić</h3>
+                            </div>
+                        </div>
+                        <p>
+                          Dolazim iz Leskovca i svaki put kada smo u Nišu, neizostavno svratimo u Piccolo...
+                        </p>
+                    </div>
+                </li>
 
-            <li>
-              <div className="slide">
-                <div className="user-info">
-                  <img src={user_1} />
-                  <div>
-                    <h3>Milica Nikolić</h3>
-                  </div>
-                </div>
-                <p>
-                  Dolazim iz Leskovca i svaki put kada smo u Nišu...
-                </p>
-              </div>
-            </li>
+                <li>
+                    <div className="slide">
+                        <div className="user-info">
+                            <img src={user_3} alt="" loading="lazy"/>
+                            <div>
+                                <h3>Jelena Ilić</h3>
+                            </div>
+                        </div>
+                        <p>
+                          Živim u Nišu i često dolazim sa decom...
+                        </p>
+                    </div>
+                </li>
 
-            <li>
-              <div className="slide">
-                <div className="user-info">
-                  <img src={user_3} />
-                  <div>
-                    <h3>Jelena Ilić</h3>
-                  </div>
-                </div>
-                <p>
-                  Igraonica je savršeno organizovana...
-                </p>
-              </div>
-            </li>
+                <li>
+                    <div className="slide">
+                        <div className="user-info">
+                            <img src={user_2} alt="" loading="lazy"/>
+                            <div>
+                                <h3>Stefan Jovanović</h3>
+                            </div>
+                        </div>
+                        <p>
+                          Kada sam bio u Nišu sa porodicom...
+                        </p>
+                    </div>
+                </li>
 
-            <li>
-              <div className="slide">
-                <div className="user-info">
-                  <img src={user_2} />
-                  <div>
-                    <h3>Stefan Jovanović</h3>
-                  </div>
-                </div>
-                <p>
-                  Oduševljeni smo posetom Piccolo...
-                </p>
-              </div>
-            </li>
-
-            <li>
-              <div className="slide">
-                <div className="user-info">
-                  <img src={user_4} />
-                  <div>
-                    <h3>Marko Petrović</h3>
-                  </div>
-                </div>
-                <p>
-                  Savršeno mesto za decu i roditelje...
-                </p>
-              </div>
-            </li>
-
-          </ul>
+                <li>
+                    <div className="slide">
+                        <div className="user-info">
+                            <img src={user_4} alt="" loading="lazy"/>
+                            <div>
+                                <h3>Marko Petrović</h3>
+                            </div>
+                        </div>
+                        <p>
+                          Piccolo je idealno mesto za decu...
+                        </p>
+                    </div>
+                </li>
+            </ul>
         </div>
 
+        {/* BUTTON */}
         <button
           className="btn dark-btn"
           onClick={() => setOpenForm(!openForm)}
@@ -147,6 +138,7 @@ const Testimonials = () => {
           Podeli svoje utiske
         </button>
 
+        {/* FORM */}
         {openForm && (
           <div className="review-form">
             {!sent ? (
@@ -177,7 +169,7 @@ const Testimonials = () => {
           </div>
         )}
 
-      </div>
+    </div>
     </section>
   )
 }
