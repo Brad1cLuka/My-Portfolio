@@ -58,7 +58,7 @@ const Contact = () => {
       const result = await response.json()
 
       if (result.success) {
-        setStatusMessage('Poruka uspešno poslata! Uskoro vas kontaktiramo.')
+        setStatusMessage('Poruka uspešno poslata! Uskoro cemo vas kontaktirati.')
         setFormData({
           Ime: '',
           'E-mail': '',
@@ -214,7 +214,15 @@ const Contact = () => {
 
           </form>
 
-          <span>{statusMessage}</span>
+          <span
+  className={
+    statusMessage.includes('uspešno')
+      ? 'success-message'
+      : 'error-message'
+  }
+>
+  {statusMessage}
+</span>
 
         </div>
       </div>

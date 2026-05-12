@@ -54,7 +54,19 @@
   gap: 5px;
   cursor: pointer;
 }
+.success-message {
+  color: #1fa44a;
+  font-weight: 600;
+  display: block;
+  margin-top: 12px;
+}
 
+.error-message {
+  color: #d93025;
+  font-weight: 600;
+  display: block;
+  margin-top: 12px;
+}
 /* ========================= */
 /*         MOBILE FIX        */
 /* ========================= */
