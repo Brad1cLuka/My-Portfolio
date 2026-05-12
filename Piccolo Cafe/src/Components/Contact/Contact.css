@@ -54,6 +54,10 @@
   gap: 5px;
   cursor: pointer;
 }
+.success{
+    color: green;
+    font-weight: bold;
+}
 
 /* ========================= */
 /*         MOBILE FIX        */
