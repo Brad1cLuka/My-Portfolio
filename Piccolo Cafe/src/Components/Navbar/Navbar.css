@@ -152,7 +152,15 @@ nav ul li .btn:hover::before {
 .hamburger.active span:nth-child(3) {
   transform: translateY(-9px) rotate(-45deg);
 }
-
+/* FIX: poravnanje "Zakazivanje termina" dugmeta */
+nav ul li .btn.nav-btn-fix {
+  padding: 6px 14px;      /* malo manje vertikalno */
+  font-size: 18px;
+  line-height: 1;        /* da se poravna sa tekstom */
+  display: inline-flex;
+  align-items: center;
+  transform: translateY(1px); /* sitno spuštanje da legne vizuelno */
+}
 /* MOBILE */
 
 @media (max-width: 840px) {
