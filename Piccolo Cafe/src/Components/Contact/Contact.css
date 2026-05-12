@@ -18,6 +18,14 @@
   gap: 10px;
 }
 
+/* LIST ICONS FIX (SMANJENE IKONICE) */
+.contact-col ul li img {
+  width: 18px;
+  height: 18px;
+  margin-right: 10px;
+  object-fit: contain;
+}
+
 /* FORM */
 .contact form input,
 .contact form textarea,
