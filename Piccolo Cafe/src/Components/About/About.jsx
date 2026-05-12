@@ -56,7 +56,7 @@ const About = () => {
             <h3>UN PICCOLO SORRISO</h3>
             <h2 id="kafic-title">O kafiću</h2>
             <p>Adresiran na Bulevaru Svetog Pantelejmona 91b, Piccolo je više od običnog kafića – to je mesto gde se spajaju ljubav prema dobroj hrani, prijatnoj atmosferi i veselju celokupne porodice. U srcu našeg kafića nalazi se ljubazno i posvećeno osoblje koje je uvek tu da vam pruži nezaboravno iskustvo, bilo da uživate u mirnom popodnevu uz kafu ili se opuštate s prijateljima.</p>
-            <p>Naši talentovani kuvari pripremaju jela koja nisu samo ukusna, već i prava umetnost – sve sa pažnjom i ljubavlju, koristeći samo najkvalitetnije sastojke. Bilo da birate brzo uživanje u ukusnom desertu ili želite da uživate u kompletnom obroku, Piccolo će zadovoljiti i najzahtevnije gurmane.</p>
+           {/* <p>Naši talentovani kuvari pripremaju jela koja nisu samo ukusna, već i prava umetnost – sve sa pažnjom i ljubavlju, koristeći samo najkvalitetnije sastojke. Bilo da birate brzo uživanje u ukusnom desertu ili želite da uživate u kompletnom obroku, Piccolo će zadovoljiti i najzahtevnije gurmane.</p>*/}
           </div>
         </section>
       </FadeInSection>
@@ -67,8 +67,8 @@ const About = () => {
             <h3>UN PICCOLO SORRISO</h3>
             <h2 id="igraonica-title">O igraonici</h2>
             <p>Za naše mlađe goste, kafić Piccolo je pravo carstvo zabave! Naša igraonica prostire se na impresivnih 300 kvadratnih metara, čineći je najvećom i najmodernijom igraonicom u gradu. Ovaj prostor je pun avantura, izazova i zabavnih sadržaja koji omogućavaju deci da uživaju u kreativnoj igri, dok razvijaju svoje sposobnosti i maštu. Bilo da se penju, trče ili rešavaju interaktivne zadatke, naša igraonica pruža bezbedno i stimulativno okruženje za decu svih uzrasta.</p>
-            <p>Mališani će uživati u svakom trenutku provedenom u ovoj jedinstvenoj oazi zabave, dok se naši pažljivo obučeni animatori brinu o njima i vode ih kroz sve aktivnosti, omogućujući roditeljima da se opuste i uživaju u svom vremenu u kafiću.</p>
-            <p>U Piccolu, svaki trenutak je prilika da se opustite, uživate u životu i stvorite nezaboravne uspomene sa voljenima. Posetite nas i doživite pravu čaroliju koja je, baš kao i naš kafić, uvek tu da vas usreći.</p>
+            {/*<p>Mališani će uživati u svakom trenutku provedenom u ovoj jedinstvenoj oazi zabave, dok se naši pažljivo obučeni animatori brinu o njima i vode ih kroz sve aktivnosti, omogućujući roditeljima da se opuste i uživaju u svom vremenu u kafiću.</p>
+            <p>U Piccolu, svaki trenutak je prilika da se opustite, uživate u životu i stvorite nezaboravne uspomene sa voljenima. Posetite nas i doživite pravu čaroliju koja je, baš kao i naš kafić, uvek tu da vas usreći.</p>*/}
           </div>
           <div className="about-right">
             <picture>
