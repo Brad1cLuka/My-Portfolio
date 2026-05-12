@@ -154,12 +154,16 @@ nav ul li .btn:hover::before {
 }
 /* FIX: poravnanje "Zakazivanje termina" dugmeta */
 nav ul li .btn.nav-btn-fix {
-  padding: 6px 14px;      /* malo manje vertikalno */
+  padding: 7px 14px;        /* malo balansiran padding */
   font-size: 18px;
-  line-height: 1;        /* da se poravna sa tekstom */
+  line-height: 18px;        /* KLJUČ: poravnava sa tekstom */
   display: inline-flex;
   align-items: center;
-  transform: translateY(2px); /* sitno spuštanje da legne vizuelno */
+  vertical-align: middle;   /* KLJUČ 2 */
+}
+nav ul li {
+  display: inline-flex;
+  align-items: center;
 }
 /* MOBILE */
 
