@@ -48,11 +48,11 @@
 }
 
 .nav.left {
-  left: 10px;
+  left: -60px;
 }
 
 .nav.right {
-  right: 10px;
+  right: -60px;
 }
 
 .info-bar {

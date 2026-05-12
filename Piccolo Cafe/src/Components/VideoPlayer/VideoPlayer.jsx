@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useRef, useEffect } from 'react'
 import './VideoPlayer.css'
 
 import pice1 from '../../assets/pice-meni-1.webp'
@@ -29,6 +29,16 @@ const VideoPlayer = ({ activeGallery, imageIndex, setActiveGallery }) => {
 
   const images = galleries[activeGallery]
   const currentIndex = imageIndex
+
+  // 🔥 PRELOAD SVIH SLIKA KAD SE OTVORI GALERIJA
+  useEffect(() => {
+    if (!activeGallery) return
+
+    images.forEach((src) => {
+      const img = new Image()
+      img.src = src
+    })
+  }, [activeGallery])
 
   const goPrev = () => {
     if (currentIndex > 0) {
