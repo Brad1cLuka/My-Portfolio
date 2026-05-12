@@ -11,22 +11,24 @@
   flex-basis: 31%;
   position: relative;
   cursor: pointer;
+  overflow: hidden;
+  border-radius: 12px;
 }
 
 .program img {
   width: 100%;
-  border-radius: 10px;
+  border-radius: 12px;
   display: block;
+  transition: transform 0.4s ease;
 }
 
+/* CAPTION */
+
 .caption {
-  border-radius: 10px;
+  border-radius: 12px;
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 15, 152, 0.3);
+  inset: 0;
+  background: rgba(0, 15, 152, 0.45);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -34,29 +36,86 @@
   color: #fff;
   opacity: 0;
   padding-top: 70%;
-  transition: opacity 0.4s, padding-top 0.4s;
+  transition:
+    opacity 0.4s ease,
+    padding-top 0.4s ease,
+    backdrop-filter 0.4s ease;
+  backdrop-filter: blur(0px);
 }
 
 .caption img {
   width: 60px;
   margin-bottom: 10px;
-  pointer-events: none; /* da ikona ne blokira klik na caption */
+  pointer-events: none;
+}
+
+.caption p {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+/* DESKTOP HOVER */
+
+.program:hover img {
+  transform: scale(1.04);
 }
 
 .program:hover .caption,
 .program:focus-within .caption {
   opacity: 1;
   padding-top: 0;
+  backdrop-filter: blur(3px);
 }
 
-/* ------ media query -------- */
+/* MOBILE ACTIVE CARD */
+
+.program.mobile-active .caption {
+  opacity: 1;
+  padding-top: 0;
+  backdrop-filter: blur(3px);
+}
+
+.program.mobile-active img {
+  transform: scale(1.03);
+}
+
+/* MOBILE SLIDER */
 
 @media (max-width: 650px) {
   .programs {
-    flex-direction: column;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 18px;
+    padding-bottom: 10px;
+
+    scrollbar-width: none;
+    -ms-overflow-style: none;
   }
+
+  .programs::-webkit-scrollbar {
+    display: none;
+  }
+
   .program {
-    flex-basis: 100%;
-    margin: 20px 0;
+    min-width: 85%;
+    flex: 0 0 auto;
+    scroll-snap-align: center;
+    margin: 10px 0;
+  }
+
+  .caption {
+    opacity: 0.95;
+    padding-top: 0;
+    background: rgba(0, 15, 152, 0.38);
+  }
+
+  .caption img {
+    width: 52px;
+  }
+
+  .caption p {
+    font-size: 1.1rem;
   }
 }
