@@ -1,15 +1,15 @@
-import React, { useRef, useState, useEffect } from 'react'
+import React, { useRef, useState } from 'react'
 import './Testimonials.css'
 import next_icon from '../../assets/next-icon.png'
 import back_icon from '../../assets/back-icon.png'
-import user_1 from '../../assets/user-1.webp'
-import user_2 from '../../assets/user-2.webp'
-import user_3 from '../../assets/user-3.webp'
-import user_4 from '../../assets/user-4.webp'
+import user_1 from '../../assets/user-1.png'
+import user_2 from '../../assets/user-2.png'
+import user_3 from '../../assets/user-3.png'
+import user_4 from '../../assets/user-4.png'
 
 const Testimonials = () => {
-  const slider = useRef(null)
-  const tx = useRef(0)
+  const slider = useRef()
+  let tx = 0
 
   const [openForm, setOpenForm] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -21,28 +21,22 @@ const Testimonials = () => {
     tekst: ''
   })
 
-  useEffect(() => {
-    if (slider.current) {
-      slider.current.style.willChange = 'transform'
-    }
-  }, [])
-
   const slideForward = () => {
-    if (tx.current > -50) {
-      tx.current -= 25
-      slider.current.style.transform = `translateX(${tx.current}%)`
+    if (tx > -50) {
+      tx -= 25
+      slider.current.style.transform = `translateX(${tx}%)`
     }
   }
 
   const slideBackward = () => {
-    if (tx.current < 0) {
-      tx.current += 25
-      slider.current.style.transform = `translateX(${tx.current}%)`
+    if (tx < 0) {
+      tx += 25
+      slider.current.style.transform = `translateX(${tx}%)`
     }
   }
 
   const handleChange = (e) => {
-    setForm(prev => ({ ...prev, [e.target.name]: e.target.value }))
+    setForm({ ...form, [e.target.name]: e.target.value })
   }
 
   const handleSubmit = async (e) => {
@@ -85,7 +79,7 @@ const Testimonials = () => {
                   <img src={user_1} />
                   <div><h3>Milica Nikolić</h3></div>
                 </div>
-                <p>Dolazim iz Leskovca i svaki put kada smo u Nišu, neizostavno svratimo u Piccolo...</p>
+                <p>Dolazim iz Leskovca...</p>
               </div>
             </li>
 
@@ -95,7 +89,7 @@ const Testimonials = () => {
                   <img src={user_3} />
                   <div><h3>Jelena Ilić</h3></div>
                 </div>
-                <p>Živim u Nišu i često dolazim u Piccolo sa mojom decom...</p>
+                <p>Živim u Nišu...</p>
               </div>
             </li>
 
@@ -105,7 +99,7 @@ const Testimonials = () => {
                   <img src={user_2} />
                   <div><h3>Stefan Jovanović</h3></div>
                 </div>
-                <p>Kada sam bio u Nišu, sa porodicom smo posetili Piccolo...</p>
+                <p>Sa porodicom smo posetili...</p>
               </div>
             </li>
 
@@ -115,14 +109,17 @@ const Testimonials = () => {
                   <img src={user_4} />
                   <div><h3>Marko Petrović</h3></div>
                 </div>
-                <p>Piccolo igraonica je pravo mesto za moju decu...</p>
+                <p>Piccolo igraonica je pravo mesto...</p>
               </div>
             </li>
           </ul>
         </div>
 
         {!submittedOnce && !sent && (
-          <button className="btn dark-btn" onClick={() => setOpenForm(!openForm)}>
+          <button
+            className="btn dark-btn"
+            onClick={() => setOpenForm(!openForm)}
+          >
             Podeli svoje utiske
           </button>
         )}
@@ -156,6 +153,7 @@ const Testimonials = () => {
             )}
           </div>
         )}
+
       </div>
     </section>
   )

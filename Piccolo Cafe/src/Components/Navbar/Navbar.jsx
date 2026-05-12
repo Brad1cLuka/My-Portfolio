@@ -7,45 +7,33 @@ const Navbar = () => {
   const [mobileMenu, setMobileMenu] = useState(false)
 
   useEffect(() => {
-    let ticking = false
-
     const handleScroll = () => {
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          setSticky(window.scrollY > 50)
-          ticking = false
-        })
-        ticking = true
-      }
+      setSticky(window.scrollY > 50)
     }
 
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  const toggleMenu = () => setMobileMenu(prev => !prev)
+  const toggleMenu = () => {
+    setMobileMenu(prev => !prev)
+  }
 
   const handleLinkClick = (e, id) => {
     e.preventDefault()
     setMobileMenu(false)
 
     const target = document.getElementById(id)
-
     if (target) {
-      const yOffset = -80
-      const y =
-        target.getBoundingClientRect().top +
-        window.pageYOffset +
-        yOffset
-
-      window.scrollTo({ top: y, behavior: 'smooth' })
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' })
     }
   }
 
   return (
     <nav className={`container ${sticky ? 'dark-nav' : ''}`}>
+
       <a href="#hero" onClick={(e) => handleLinkClick(e, 'hero')}>
-        <img src={logo} className="logo" />
+        <img src={logo} alt="Logo Piccolo" className="logo" />
       </a>
 
       <ul className={mobileMenu ? '' : 'hide-mobile-menu'}>
@@ -58,8 +46,11 @@ const Navbar = () => {
       </ul>
 
       <div className={`hamburger ${mobileMenu ? 'active' : ''}`} onClick={toggleMenu}>
-        <span></span><span></span><span></span>
+        <span></span>
+        <span></span>
+        <span></span>
       </div>
+
     </nav>
   )
 }
