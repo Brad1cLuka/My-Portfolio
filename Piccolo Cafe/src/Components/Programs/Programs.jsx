@@ -1,9 +1,9 @@
 import React from 'react'
 import './Programs.css'
 
-import program_1 from '../../assets/pice-meni.jpg'
-import program_2 from '../../assets/hrana-meni.jpg'
-import program_3 from '../../assets/igraonica-meni.jpg'
+import program_1 from '../../assets/pice-meni.webp'
+import program_2 from '../../assets/hrana-meni.webp'
+import program_3 from '../../assets/igraonica-meni.webp'
 
 import program_icon_1 from '../../assets/book-icon.png'
 
