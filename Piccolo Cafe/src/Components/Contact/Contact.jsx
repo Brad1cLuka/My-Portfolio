@@ -1,187 +1,225 @@
-import React, { useRef, useState } from 'react'
-import './Testimonials.css'
-import next_icon from '../../assets/next-icon.png'
-import back_icon from '../../assets/back-icon.png'
-import user_1 from '../../assets/user-1.webp'
-import user_2 from '../../assets/user-2.webp'
-import user_3 from '../../assets/user-3.webp'
-import user_4 from '../../assets/user-4.webp'
+import React, { useState } from 'react'
+import './Contact.css'
+import msg_icon from '../../assets/msg-icon.png'
+import mail_icon from '../../assets/mail-icon.png'
+import phone_icon from '../../assets/phone-icon.png'
+import location_icon from '../../assets/location-icon.png'
+import white_arrow from '../../assets/white-arrow.png'
 
-const Testimonials = () => {
+const Contact = () => {
+  const [formData, setFormData] = useState({
+    Ime: '',
+    'E-mail': '',
+    Telefon: '',
+    'Željeni datum': '',
+    'Očekivani broj dece': '',
+    'Očekivani broj roditelja': '',
+    Vreme: '',
+    Meni: '',
+    Napomena: ''
+  })
 
-    const slider = useRef();
-    let tx = 0;
+  const [statusMessage, setStatusMessage] = useState('')
+  const [loading, setLoading] = useState(false)
 
-    const [openForm, setOpenForm] = useState(false)
-    const [loading, setLoading] = useState(false)
-    const [sent, setSent] = useState(false)
-    const [submittedOnce, setSubmittedOnce] = useState(false)
+  const onChange = (e) => {
+    const { name, value } = e.target
+    setFormData(prev => ({ ...prev, [name]: value }))
+  }
 
-    const [form, setForm] = useState({
-      ime: '',
-      tekst: ''
-    })
+  const onSubmit = async (event) => {
+    event.preventDefault()
+    setLoading(true)
+    setStatusMessage('Slanje...')
 
-    const slideForward = ()=>{
-        if(tx > -50){
-            tx -= 25;
-        }
-        slider.current.style.transform = `translateX(${tx}%)`
-    }
-    
-    const slideBackward = ()=>{
-        if(tx < 0){
-            tx += 25;
-        }
-        slider.current.style.transform = `translateX(${tx}%)`
-    }
-
-    const handleChange = (e) => {
-      setForm({ ...form, [e.target.name]: e.target.value })
+    if (new Date(formData['Željeni datum']) < new Date().setHours(0, 0, 0, 0)) {
+      setStatusMessage('Datum mora biti danas ili u budućnosti.')
+      setLoading(false)
+      return
     }
 
-    const handleSubmit = async (e) => {
-      e.preventDefault()
-      setLoading(true)
-
+    try {
       const data = new FormData()
-      data.append('access_key', '19536fb6-d2b1-4606-a434-39921e59bcd4')
-      data.append('Ime', form.ime)
-      data.append('Recenzija', form.tekst)
 
-      await fetch('https://api.web3forms.com/submit', {
+      for (const key in formData) {
+        data.append(key, formData[key])
+      }
+
+      data.append('access_key', '19536fb6-d2b1-4606-a434-39921e59bcd4')
+
+      data.append('subject', 'Nova rezervacija termina - Piccolo')
+      data.append('from_name', 'Piccolo Kontakt Forma')
+
+      const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         body: data
       })
 
-      setLoading(false)
-      setSent(true)
-      setSubmittedOnce(true)
+      const result = await response.json()
 
-      setTimeout(() => {
-        setOpenForm(false)
-        setSent(false)
-        setForm({ ime: '', tekst: '' })
-      }, 2000)
+      if (result.success) {
+        setStatusMessage('Poruka uspešno poslata! Uskoro vas kontaktiramo.')
+        setFormData({
+          Ime: '',
+          'E-mail': '',
+          Telefon: '',
+          'Željeni datum': '',
+          'Očekivani broj dece': '',
+          'Očekivani broj roditelja': '',
+          Vreme: '',
+          Meni: '',
+          Napomena: ''
+        })
+      } else {
+        setStatusMessage(result.message || 'Došlo je do greške.')
+      }
+    } catch (error) {
+      setStatusMessage('Greška pri slanju forme.')
+    } finally {
+      setLoading(false)
     }
+  }
 
   return (
-    <section id="testimonials">
-      <div className="testimonials">
+    <section id="contact">
+      <div className="contact">
 
-        <img src={next_icon} alt="" className="next-btn" onClick={slideForward} />
-        <img src={back_icon} alt="" className="back-btn" onClick={slideBackward} />
+        <div className="contact-col">
+          <h3>
+            Kontaktirajte nas <img src={msg_icon} alt="" />
+          </h3>
 
-        <div className="slider">
-          <ul ref={slider}>
+          <p>Želite da zakažete proslavu rođendana svog deteta?</p>
 
-            <li>
-              <div className="slide">
-                <div className="user-info">
-                  <img src={user_1} alt="" loading="lazy" />
-                  <div>
-                    <h3>Milica Nikolić</h3>
-                  </div>
-                </div>
-                <p>
-                  Dolazim iz Leskovca i svaki put kada smo u Nišu, neizostavno svratimo u Piccolo. Moja deca se uvek rado igraju u igraonici, dok ja mogu da popijem dobru kafu i pojedem nešto ukusno. Mesto je izuzetno prijatno i idealno za porodični odmor.
-                </p>
-              </div>
-            </li>
+          <p>
+            To možete učiniti putem forme. Odaberite datum, vreme i meni po želji.
+          </p>
 
-            <li>
-              <div className="slide">
-                <div className="user-info">
-                  <img src={user_3} alt="" loading="lazy" />
-                  <div>
-                    <h3>Jelena Ilić</h3>
-                  </div>
-                </div>
-                <p>
-                  Živim u Nišu i često dolazim u Piccolo sa mojom decom. Igraonica je savršeno organizovana, sa mnogo zanimljivih i sigurnih aktivnosti za mališane. Dok se deca igraju, mogu da uživam u ukusnoj hrani i piću.
-                </p>
-              </div>
-            </li>
-
-            <li>
-              <div className="slide">
-                <div className="user-info">
-                  <img src={user_2} alt="" loading="lazy" />
-                  <div>
-                    <h3>Stefan Jovanović</h3>
-                  </div>
-                </div>
-                <p>
-                  Kada sam bio u Nišu, sa porodicom smo posetili Piccolo i oduševili se. Moja deca su bila presrećna jer je igraonica zaista prilagođena njihovim godinama, a ja sam uživao u miru i odličnoj ponudi kafića.
-                </p>
-              </div>
-            </li>
-
-            <li>
-              <div className="slide">
-                <div className="user-info">
-                  <img src={user_4} alt="" loading="lazy" />
-                  <div>
-                    <h3>Marko Petrović</h3>
-                  </div>
-                </div>
-                <p>
-                  Kao roditelj, Piccolo igraonica je pravo mesto za moju decu da se bezbedno i kreativno igraju dok ja uživam u odličnoj kafi. Prostor je prostran i čist, a osoblje izuzetno pažljivo.
-                </p>
-              </div>
-            </li>
-
+          <ul>
+            <li><img src={mail_icon} alt="" /> info@piccolo.com</li>
+            <li><img src={phone_icon} alt="" /> +38165 684-05-12</li>
+            <li><img src={location_icon} alt="" /> Niš, Srbija</li>
           </ul>
         </div>
 
-        {/* BUTTON (jednom po reload-u) */}
-        {!submittedOnce && !sent && (
-          <button
-            className="btn dark-btn"
-            onClick={() => setOpenForm(!openForm)}
-          >
-            Podeli svoje utiske
-          </button>
-        )}
+        <div className="contact-col">
 
-        {/* FORM */}
-        {openForm && (
-          <div className="review-form">
+          <form onSubmit={onSubmit}>
 
-            {!sent ? (
-              <form onSubmit={handleSubmit}>
+            <label htmlFor="ime">Ime:</label>
+            <input
+              id="ime"
+              name="Ime"
+              value={formData.Ime}
+              onChange={onChange}
+              required
+            />
 
-                <input
-                  name="ime"
-                  placeholder="Ime i prezime"
-                  value={form.ime}
-                  onChange={handleChange}
-                  required
-                />
+            <label htmlFor="email">Email:</label>
+            <input
+              id="email"
+              name="E-mail"
+              type="email"
+              value={formData['E-mail']}
+              onChange={onChange}
+              required
+            />
 
-                <textarea
-                  name="tekst"
-                  placeholder="Tvoj utisak"
-                  value={form.tekst}
-                  onChange={handleChange}
-                  required
-                />
+            <label htmlFor="telefon">Telefon:</label>
+            <input
+              id="telefon"
+              name="Telefon"
+              value={formData.Telefon}
+              onChange={onChange}
+              required
+            />
 
-                <button type="submit" disabled={loading}>
-                  {loading ? 'Šaljem...' : 'Pošalji'}
-                </button>
+            <label htmlFor="datum">Datum:</label>
+            <input
+              id="datum"
+              type="date"
+              name="Željeni datum"
+              value={formData['Željeni datum']}
+              onChange={onChange}
+              required
+            />
 
-              </form>
-            ) : (
-              <p className="success">✔ Poslato!</p>
-            )}
+            <label htmlFor="broj-dece">Broj dece:</label>
+            <input
+              id="broj-dece"
+              type="number"
+              name="Očekivani broj dece"
+              value={formData['Očekivani broj dece']}
+              onChange={onChange}
+            />
 
-          </div>
-        )}
+            <label htmlFor="broj-roditelja">Broj roditelja:</label>
+            <input
+              id="broj-roditelja"
+              type="number"
+              name="Očekivani broj roditelja"
+              value={formData['Očekivani broj roditelja']}
+              onChange={onChange}
+            />
 
+            <fieldset className="time-box">
+              <legend>Izaberite termin</legend>
+
+              <div className="alignment">
+                {['14H', '16H', '18H', '20H'].map((v) => (
+                  <label key={v}>
+                    <input
+                      type="radio"
+                      name="Vreme"
+                      value={v}
+                      checked={formData.Vreme === v}
+                      onChange={onChange}
+                      required
+                    />
+                    {v.slice(0, -1)}:00
+                  </label>
+                ))}
+              </div>
+            </fieldset>
+
+            <label htmlFor="meni">Odaberite meni:</label>
+            <select
+              id="meni"
+              name="Meni"
+              value={formData.Meni}
+              onChange={onChange}
+              required
+            >
+              <option value="">Izaberite</option>
+              <option value="Grickalice">Grickalice</option>
+              <option value="Ono kao nekad">Ono kao nekad</option>
+              <option value="Kiflice">Kiflice</option>
+              <option value="Pica">Pica</option>
+              <option value="Piletina">Piletina</option>
+              <option value="Mini Burgeri">Mini Burgeri</option>
+            </select>
+
+            <label htmlFor="napomena">Napomena:</label>
+            <textarea
+              id="napomena"
+              name="Napomena"
+              value={formData.Napomena}
+              onChange={onChange}
+            />
+
+            <button className="btn dark-btn" disabled={loading}>
+              {loading ? 'Slanje...' : 'Pošalji'}
+              <img src={white_arrow} alt="" />
+            </button>
+
+          </form>
+
+          <span>{statusMessage}</span>
+
+        </div>
       </div>
     </section>
   )
 }
 
-export default Testimonials
+export default Contact
