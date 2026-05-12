@@ -17,16 +17,29 @@ import gallery_12 from '../../assets/igr5.webp';
 import white_arrow from '../../assets/white-arrow.png';
 
 const allImages = [
-  gallery_1, gallery_2, gallery_3, gallery_4,
-  gallery_5, gallery_6, gallery_7, gallery_8,
-  gallery_9, gallery_10, gallery_11, gallery_12
+  gallery_1,
+  gallery_2,
+  gallery_3,
+  gallery_4,
+  gallery_5,
+  gallery_6,
+  gallery_7,
+  gallery_8,
+  gallery_9,
+  gallery_10,
+  gallery_11,
+  gallery_12,
 ];
 
 const Campus = () => {
   const [expanded, setExpanded] = useState(false);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
+
   const closeBtnRef = useRef(null);
+
+  const touchStartX = useRef(0);
+  const touchEndX = useRef(0);
 
   const imagesToShow = expanded ? allImages : allImages.slice(0, 4);
 
@@ -40,24 +53,35 @@ const Campus = () => {
   };
 
   const goPrev = (e) => {
-    e.stopPropagation();
-    setCurrentIndex((currentIndex - 1 + allImages.length) % allImages.length);
+    if (e) e.stopPropagation();
+
+    setCurrentIndex((prev) =>
+      (prev - 1 + allImages.length) % allImages.length
+    );
   };
 
   const goNext = (e) => {
-    e.stopPropagation();
-    setCurrentIndex((currentIndex + 1) % allImages.length);
+    if (e) e.stopPropagation();
+
+    setCurrentIndex((prev) =>
+      (prev + 1) % allImages.length
+    );
   };
 
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === 'Escape') closeLightbox();
-      if (e.key === 'ArrowLeft') goPrev(e);
-      if (e.key === 'ArrowRight') goNext(e);
+      if (e.key === 'ArrowLeft') goPrev();
+      if (e.key === 'ArrowRight') goNext();
     };
-    if (lightboxOpen) document.addEventListener('keydown', handleKeyDown);
-    return () => document.removeEventListener('keydown', handleKeyDown);
-  }, [lightboxOpen, currentIndex]);
+
+    if (lightboxOpen) {
+      document.addEventListener('keydown', handleKeyDown);
+    }
+
+    return () =>
+      document.removeEventListener('keydown', handleKeyDown);
+  }, [lightboxOpen]);
 
   useEffect(() => {
     if (lightboxOpen && closeBtnRef.current) {
@@ -65,64 +89,97 @@ const Campus = () => {
     }
   }, [lightboxOpen]);
 
+  const handleTouchStart = (e) => {
+    touchStartX.current = e.changedTouches[0].screenX;
+  };
+
+  const handleTouchEnd = (e) => {
+    touchEndX.current = e.changedTouches[0].screenX;
+
+    const distance =
+      touchStartX.current - touchEndX.current;
+
+    if (distance > 50) {
+      goNext();
+    }
+
+    if (distance < -50) {
+      goPrev();
+    }
+  };
+
   return (
-    <section id="campus">
-    <div className='campus'>
-      <div className="gallery">
-        {imagesToShow.map((img, idx) => (
-          <img
-            key={idx}
-            loading="lazy"
-            src={img}
-            alt={`Slika kafića ${idx + 1}`}
-            onClick={() => openLightbox(idx)}
-            style={{ cursor: 'pointer' }}
-          />
-        ))}
-      </div>
+    <section id='campus'>
+      <div className='campus'>
+        <div className='gallery'>
+          {imagesToShow.map((img, idx) => (
+            <img
+              key={idx}
+              loading='lazy'
+              src={img}
+              alt={`Slika kafića ${idx + 1}`}
+              onClick={() => openLightbox(idx)}
+            />
+          ))}
+        </div>
 
-      <button
-        className='btn dark-btn'
-        onClick={() => setExpanded(!expanded)}
-        aria-label={expanded ? "Prikaži manje slika" : "Prikaži još slika"}
-      >
-        {expanded ? 'Prikaži manje' : 'Još fotografija'} <img src={white_arrow} alt="Strelica" />
-      </button>
-
-      {lightboxOpen && (
-        <div
-          className='lightbox-overlay'
-          onClick={closeLightbox}
-          role="dialog"
-          aria-modal="true"
-          aria-label={`Galerija slika, prikazana slika ${currentIndex + 1} od ${allImages.length}`}
+        <button
+          className='btn dark-btn'
+          onClick={() => setExpanded(!expanded)}
+          aria-label={
+            expanded
+              ? 'Prikaži manje slika'
+              : 'Prikaži još slika'
+          }
         >
-          <button
-            ref={closeBtnRef}
-            className='lightbox-close'
-            onClick={closeLightbox}
-            aria-label="Zatvori galeriju"
-          >
-            &times;
-          </button>
+          {expanded
+            ? 'Prikaži manje'
+            : 'Još fotografija'}
 
-          <div className="lightbox-image-container">
-            <button className='lightbox-prev' onClick={goPrev} aria-label="Prethodna slika">
+          <img src={white_arrow} alt='Strelica' />
+        </button>
+
+        {lightboxOpen && (
+          <div
+            className='lightbox-overlay'
+            onClick={closeLightbox}
+            role='dialog'
+            aria-modal='true'
+          >
+            <button
+              ref={closeBtnRef}
+              className='lightbox-close'
+              onClick={closeLightbox}
+            >
+              &times;
+            </button>
+
+            <button
+              className='lightbox-prev'
+              onClick={goPrev}
+            >
               &#10094;
             </button>
+
             <img
               className='lightbox-img'
               src={allImages[currentIndex]}
               alt={`Uvećana slika ${currentIndex + 1}`}
-              loading="lazy"
+              loading='lazy'
+              onClick={(e) => e.stopPropagation()}
+              onTouchStart={handleTouchStart}
+              onTouchEnd={handleTouchEnd}
             />
-            <button className='lightbox-next' onClick={goNext} aria-label="Sledeća slika">
+
+            <button
+              className='lightbox-next'
+              onClick={goNext}
+            >
               &#10095;
             </button>
           </div>
-        </div>
-      )}
-    </div>
+        )}
+      </div>
     </section>
   );
 };
