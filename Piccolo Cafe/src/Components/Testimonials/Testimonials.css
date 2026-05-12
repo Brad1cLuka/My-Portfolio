@@ -97,9 +97,7 @@
     font-weight: bold;
 }
 
-
-/* ------ media query ------ */
-
+/* responsive ostaje isto */
 @media (max-width: 800px)
 {
     .testimonials{
