@@ -1,48 +1,25 @@
-import React, { useRef, useState, useEffect } from 'react'
-import './Testimonials.css'
-import next_icon from '../../assets/next-icon.png'
-import back_icon from '../../assets/back-icon.png'
-import user_1 from '../../assets/user-1.png'
-import user_2 from '../../assets/user-2.png'
-import user_3 from '../../assets/user-3.png'
-import user_4 from '../../assets/user-4.png'
+import React, { useState } from 'react'
+import './Contact.css'
 
-const Testimonials = () => {
-  const slider = useRef(null)
-  const tx = useRef(0)
-
-  const [openForm, setOpenForm] = useState(false)
+const Contact = () => {
   const [loading, setLoading] = useState(false)
   const [sent, setSent] = useState(false)
-  const [submittedOnce, setSubmittedOnce] = useState(false)
 
   const [form, setForm] = useState({
     ime: '',
-    tekst: ''
+    email: '',
+    telefon: '',
+    datum: '',
+    odrasli: '',
+    deca: '',
+    poruka: '',
   })
 
-  useEffect(() => {
-    if (slider.current) {
-      slider.current.style.willChange = 'transform'
-    }
-  }, [])
-
-  const slideForward = () => {
-    if (tx.current > -50) {
-      tx.current -= 25
-      slider.current.style.transform = `translateX(${tx.current}%)`
-    }
-  }
-
-  const slideBackward = () => {
-    if (tx.current < 0) {
-      tx.current += 25
-      slider.current.style.transform = `translateX(${tx.current}%)`
-    }
-  }
-
   const handleChange = (e) => {
-    setForm(prev => ({ ...prev, [e.target.name]: e.target.value }))
+    setForm(prev => ({
+      ...prev,
+      [e.target.name]: e.target.value
+    }))
   }
 
   const handleSubmit = async (e) => {
@@ -53,122 +30,116 @@ const Testimonials = () => {
 
     data.append('access_key', '19536fb6-d2b1-4606-a434-39921e59bcd4')
 
-    // 👇 PERSONALIZACIJA MEJLA
-    data.append('from_name', 'Piccolo Recenzije')
-    data.append('subject', 'Nova recenzija - Piccolo')
+    // 👇 EMAIL HEADER PERSONALIZACIJA
+    data.append('from_name', 'Piccolo Zakazivanje')
+    data.append('subject', 'Zakazivanje termina - Piccolo')
+    data.append('replyto', form.email)
 
+    // 👇 PODACI
     data.append('Ime', form.ime)
-    data.append('Recenzija', form.tekst)
+    data.append('Email', form.email)
+    data.append('Telefon', form.telefon)
+    data.append('Datum', form.datum)
+    data.append('Odrasli', form.odrasli)
+    data.append('Deca', form.deca)
+    data.append('Poruka', form.poruka)
 
-    try {
-      await fetch('https://api.web3forms.com/submit', {
-        method: 'POST',
-        body: data
-      })
-    } catch (err) {
-      console.error(err)
-    }
+    await fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      body: data
+    })
 
     setLoading(false)
     setSent(true)
-    setSubmittedOnce(true)
 
     setTimeout(() => {
-      setOpenForm(false)
       setSent(false)
-      setForm({ ime: '', tekst: '' })
-    }, 2000)
+      setForm({
+        ime: '',
+        email: '',
+        telefon: '',
+        datum: '',
+        odrasli: '',
+        deca: '',
+        poruka: '',
+      })
+    }, 2500)
   }
 
   return (
-    <section id="testimonials">
-      <div className="testimonials">
+    <section id="contact" className="contact">
 
-        <img src={next_icon} className="next-btn" onClick={slideForward} />
-        <img src={back_icon} className="back-btn" onClick={slideBackward} />
+      <div className="contact-col">
+        <h3>Kontaktirajte nas</h3>
 
-        <div className="slider">
-          <ul ref={slider}>
-            <li>
-              <div className="slide">
-                <div className="user-info">
-                  <img src={user_1} />
-                  <div><h3>Milica Nikolić</h3></div>
-                </div>
-                <p>Dolazim iz Leskovca i svaki put kada smo u Nišu, neizostavno svratimo u Piccolo...</p>
-              </div>
-            </li>
+        <form onSubmit={handleSubmit}>
 
-            <li>
-              <div className="slide">
-                <div className="user-info">
-                  <img src={user_3} />
-                  <div><h3>Jelena Ilić</h3></div>
-                </div>
-                <p>Živim u Nišu i često dolazim u Piccolo sa mojom decom...</p>
-              </div>
-            </li>
+          <label>Ime i prezime</label>
+          <input
+            name="ime"
+            value={form.ime}
+            onChange={handleChange}
+            required
+          />
 
-            <li>
-              <div className="slide">
-                <div className="user-info">
-                  <img src={user_2} />
-                  <div><h3>Stefan Jovanović</h3></div>
-                </div>
-                <p>Kada sam bio u Nišu, sa porodicom smo posetili Piccolo...</p>
-              </div>
-            </li>
+          <label>Email</label>
+          <input
+            type="email"
+            name="email"
+            value={form.email}
+            onChange={handleChange}
+            required
+          />
 
-            <li>
-              <div className="slide">
-                <div className="user-info">
-                  <img src={user_4} />
-                  <div><h3>Marko Petrović</h3></div>
-                </div>
-                <p>Piccolo igraonica je pravo mesto za moju decu...</p>
-              </div>
-            </li>
-          </ul>
-        </div>
+          <label>Telefon</label>
+          <input
+            name="telefon"
+            value={form.telefon}
+            onChange={handleChange}
+            required
+          />
 
-        {!submittedOnce && !sent && (
-          <button className="btn dark-btn" onClick={() => setOpenForm(!openForm)}>
-            Podeli svoje utiske
+          <label>Željeni datum</label>
+          <input
+            type="date"
+            name="datum"
+            value={form.datum}
+            onChange={handleChange}
+            required
+          />
+
+          <label>Broj odraslih</label>
+          <input
+            type="number"
+            name="odrasli"
+            value={form.odrasli}
+            onChange={handleChange}
+          />
+
+          <label>Broj dece</label>
+          <input
+            type="number"
+            name="deca"
+            value={form.deca}
+            onChange={handleChange}
+          />
+
+          <label>Poruka</label>
+          <textarea
+            name="poruka"
+            value={form.poruka}
+            onChange={handleChange}
+          />
+
+          <button type="submit" disabled={loading}>
+            {loading ? 'Šaljem...' : sent ? '✔ Poslato' : 'Pošalji'}
           </button>
-        )}
 
-        {openForm && (
-          <div className="review-form">
-            {!sent ? (
-              <form onSubmit={handleSubmit}>
-                <input
-                  name="ime"
-                  placeholder="Ime i prezime"
-                  value={form.ime}
-                  onChange={handleChange}
-                  required
-                />
-
-                <textarea
-                  name="tekst"
-                  placeholder="Tvoj utisak"
-                  value={form.tekst}
-                  onChange={handleChange}
-                  required
-                />
-
-                <button type="submit" disabled={loading}>
-                  {loading ? 'Šaljem...' : 'Pošalji'}
-                </button>
-              </form>
-            ) : (
-              <p className="success">✔ Poslato!</p>
-            )}
-          </div>
-        )}
+        </form>
       </div>
+
     </section>
   )
 }
 
-export default Testimonials
+export default Contact
