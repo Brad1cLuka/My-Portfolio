@@ -9,82 +9,41 @@ import program_icon_1 from '../../assets/book-icon.png'
 
 const Programs = ({ setActiveGallery }) => {
   return (
-    <section
-      id="program"
-      className="programs"
-      aria-label="Sekcija programa"
-    >
+    <section id="program" className="programs">
+      
       <article className="program">
         <img src={program_1} alt="Piće meni" />
-
         <div
           className="caption"
           onClick={() => setActiveGallery('pice', 0)}
-          role="button"
-          tabIndex={0}
-          onKeyDown={(e) =>
-            (e.key === 'Enter' || e.key === ' ') &&
-            setActiveGallery('pice', 0)
-          }
         >
-          <img
-            src={program_icon_1}
-            alt="Ikona knjige"
-            aria-hidden="true"
-            loading="lazy"
-          />
-
+          <img src={program_icon_1} alt="" />
           <p>Piće</p>
         </div>
       </article>
 
       <article className="program">
         <img src={program_2} alt="Hrana meni" />
-
         <div
           className="caption"
           onClick={() => setActiveGallery('hrana', 0)}
-          role="button"
-          tabIndex={0}
-          onKeyDown={(e) =>
-            (e.key === 'Enter' || e.key === ' ') &&
-            setActiveGallery('hrana', 0)
-          }
         >
-          <img
-            src={program_icon_1}
-            alt="Ikona knjige"
-            aria-hidden="true"
-            loading="lazy"
-          />
-
+          <img src={program_icon_1} alt="" />
           <p>Hrana</p>
         </div>
       </article>
 
       <article className="program">
         <img src={program_3} alt="Igraonica meni" />
-
         <div
           className="caption"
           onClick={() => setActiveGallery('igraonica', 0)}
-          role="button"
-          tabIndex={0}
-          onKeyDown={(e) =>
-            (e.key === 'Enter' || e.key === ' ') &&
-            setActiveGallery('igraonica', 0)
-          }
         >
-          <img
-            src={program_icon_1}
-            alt="Ikona knjige"
-            aria-hidden="true"
-            loading="lazy"
-          />
-
+          <img src={program_icon_1} alt="" />
           <p>Igraonica</p>
         </div>
       </article>
+
     </section>
   )
 }

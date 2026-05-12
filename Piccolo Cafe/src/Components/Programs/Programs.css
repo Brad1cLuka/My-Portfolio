@@ -2,86 +2,63 @@
   margin: 80px auto;
   width: 90%;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
   gap: 20px;
+  justify-content: space-between;
 }
 
+/* CARD */
 .program {
   flex-basis: 31%;
   position: relative;
   cursor: pointer;
-  overflow: hidden;
   border-radius: 12px;
+  overflow: hidden;
 }
 
 .program img {
   width: 100%;
-  border-radius: 12px;
   display: block;
-  transition: transform 0.4s ease;
+  border-radius: 12px;
+  transition: transform 0.3s ease;
 }
 
-/* CAPTION */
-
+/* OVERLAY (hover content) */
 .caption {
-  border-radius: 12px;
   position: absolute;
   inset: 0;
-  background: rgba(0, 15, 152, 0.45);
+  background: rgba(0, 15, 152, 0.25); /* BLAGI EFEKAT */
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  color: #fff;
+
+  color: white;
+
   opacity: 0;
-  padding-top: 70%;
-  transition:
-    opacity 0.4s ease,
-    padding-top 0.4s ease,
-    backdrop-filter 0.4s ease;
+  transition: 0.3s ease;
 }
 
 .caption img {
   width: 60px;
   margin-bottom: 10px;
-  pointer-events: none;
 }
 
-.caption p {
-  font-size: 1.2rem;
-  font-weight: 600;
+/* DESKTOP HOVER */
+.program:hover .caption {
+  opacity: 1;
 }
-
-/* DESKTOP */
 
 .program:hover img {
   transform: scale(1.04);
 }
 
-.program:hover .caption,
-.program:focus-within .caption {
-  opacity: 1;
-  padding-top: 0;
-  backdrop-filter: blur(3px);
-}
-
-/* MOBILE */
-
+/* ---------------- MOBILE ---------------- */
 @media (max-width: 650px) {
   .programs {
     overflow-x: auto;
     scroll-snap-type: x mandatory;
-    justify-content: flex-start;
-    gap: 18px;
+    gap: 15px;
     padding-bottom: 10px;
-
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-  }
-
-  .programs::-webkit-scrollbar {
-    display: none;
   }
 
   .program {
@@ -90,24 +67,21 @@
     scroll-snap-align: center;
   }
 
-  /* NA MOBILNOM UVEK VIDLJIV OVERLAY */
-
+  /* KLJUČNO: “FAKE HOVER” UVEK VIDLJIV */
   .caption {
     opacity: 1;
-    padding-top: 0;
-    backdrop-filter: blur(2px);
-    background: rgba(0, 15, 152, 0.35);
+    background: rgba(0, 15, 152, 0.18); /* još blaže */
   }
 
   .program img {
     transform: scale(1.02);
   }
 
-  .caption img {
-    width: 52px;
+  /* SKRIVAM SCROLLBAR */
+  .programs::-webkit-scrollbar {
+    display: none;
   }
-
-  .caption p {
-    font-size: 1.1rem;
+  .programs {
+    scrollbar-width: none;
   }
 }
