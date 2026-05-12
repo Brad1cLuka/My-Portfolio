@@ -4,7 +4,6 @@ import Hero from './Components/Hero/Hero'
 import Title from './Components/Title/Title'
 import VideoPlayer from './Components/VideoPlayer/VideoPlayer'
 
-// Lazy load veće komponente
 const About = React.lazy(() => import('./Components/About/About'))
 const Programs = React.lazy(() => import('./Components/Programs/Programs'))
 const Campus = React.lazy(() => import('./Components/Campus/Campus'))
@@ -25,20 +24,49 @@ const App = () => {
     <main lang="sr">
       <Navbar />
       <Hero />
+
       <div className="container">
-        <Suspense fallback={<div>Loading...</div>}>
+
+        {/* ABOUT */}
+        <Suspense fallback={null}>
           <About />
-          <Title subTitle="Un Piccolo Sorriso" title="Meni" />
+        </Suspense>
+
+        <Title subTitle="Un Piccolo Sorriso" title="Meni" />
+
+        {/* PROGRAMS */}
+        <Suspense fallback={null}>
           <Programs setActiveGallery={setActiveGallery} />
-          <Title subTitle="Un Piccolo Sorriso" title="Galerija" />
+        </Suspense>
+
+        <Title subTitle="Un Piccolo Sorriso" title="Galerija" />
+
+        {/* CAMPUS */}
+        <Suspense fallback={null}>
           <Campus />
-          <Title subTitle="Un Piccolo Sorriso" title="Utisci posetioca" />
+        </Suspense>
+
+        <Title subTitle="Un Piccolo Sorriso" title="Utisci posetioca" />
+
+        {/* TESTIMONIALS */}
+        <Suspense fallback={null}>
           <Testimonials />
-          <Title subTitle="Un Piccolo Sorriso" title="Zakazivanje termina" />
+        </Suspense>
+
+        <Title subTitle="Un Piccolo Sorriso" title="Zakazivanje termina" />
+
+        {/* CONTACT */}
+        <Suspense fallback={null}>
           <Contact />
+        </Suspense>
+
+        {/* FOOTER */}
+        <Suspense fallback={null}>
           <Footer />
         </Suspense>
+
       </div>
+
       <VideoPlayer
         activeGallery={activeGallery}
         imageIndex={imageIndex}
