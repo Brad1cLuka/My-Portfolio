@@ -18,6 +18,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
+
+  will-change: transform;
 }
 
 .main-image {
@@ -27,6 +29,9 @@
   box-shadow: 0 0 20px #000;
   user-select: none;
   pointer-events: none; /* sprečava slučajno selektovanje slike */
+
+  opacity: 1;
+  transition: opacity 0.15s ease-in-out;
 }
 
 .nav {
@@ -43,11 +48,11 @@
 }
 
 .nav.left {
-  left: -60px;
+  left: 10px;
 }
 
 .nav.right {
-  right: -60px;
+  right: 10px;
 }
 
 .info-bar {
