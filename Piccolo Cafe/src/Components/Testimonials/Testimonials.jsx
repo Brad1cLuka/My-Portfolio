@@ -80,7 +80,7 @@ const Testimonials = () => {
                 <div className="user-info">
                   <img src={user_1} alt="" loading="lazy" />
                   <div>
-                    <h3>Milica Nikolić</h3>
+                    <h2>Milica Nikolić</h2>
                   </div>
                 </div>
                 <p>
@@ -94,7 +94,7 @@ const Testimonials = () => {
                 <div className="user-info">
                   <img src={user_3} alt="" loading="lazy" />
                   <div>
-                    <h3>Jelena Ilić</h3>
+                    <h2>Jelena Ilić</h2>
                   </div>
                 </div>
                 <p>
@@ -108,7 +108,7 @@ const Testimonials = () => {
                 <div className="user-info">
                   <img src={user_2} alt="" loading="lazy" />
                   <div>
-                    <h3>Stefan Jovanović</h3>
+                    <h2>Stefan Jovanović</h2>
                   </div>
                 </div>
                 <p>
@@ -122,7 +122,7 @@ const Testimonials = () => {
                 <div className="user-info">
                   <img src={user_4} alt="" loading="lazy" />
                   <div>
-                    <h3>Marko Petrović</h3>
+                    <h2>Marko Petrović</h2>
                   </div>
                 </div>
                 <p>
@@ -134,7 +134,6 @@ const Testimonials = () => {
           </ul>
         </div>
 
-        {/* BUTTON (jednom po reload-u) */}
         {!submittedOnce && !sent && (
           <button
             className="btn dark-btn"
@@ -144,14 +143,18 @@ const Testimonials = () => {
           </button>
         )}
 
-        {/* FORM */}
         {openForm && (
           <div className="review-form">
 
             {!sent ? (
               <form onSubmit={handleSubmit}>
 
+                <label htmlFor="testimonial-ime">
+                  Ime i prezime
+                </label>
+
                 <input
+                  id="testimonial-ime"
                   name="ime"
                   placeholder="Ime i prezime"
                   value={form.ime}
@@ -159,7 +162,12 @@ const Testimonials = () => {
                   required
                 />
 
+                <label htmlFor="testimonial-tekst">
+                  Tvoj utisak
+                </label>
+
                 <textarea
+                  id="testimonial-tekst"
                   name="tekst"
                   placeholder="Tvoj utisak"
                   value={form.tekst}
