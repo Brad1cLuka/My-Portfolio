@@ -103,7 +103,7 @@ const Contact = () => {
 
           <div className="contact-map">
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d1008.2278164121841!2d21.92539666973866!3d43.33556207430751!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e1!3m2!1ssr!2srs!4v1778666051708!5m2!1ssr!2srs"
+              src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d1068.1783744333243!2d21.925233333300092!3d43.33566537970116!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4755b1c1a70d0e8f%3A0x719d1feee9aa2b5f!2sPICCOLO%20CAFE!5e1!3m2!1ssr!2srs!4v1778666363917!5m2!1ssr!2srs"
               width="100%"
               height="250"
               style={{ border: 0 }}
