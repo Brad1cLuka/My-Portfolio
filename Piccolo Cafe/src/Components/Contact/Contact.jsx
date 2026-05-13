@@ -103,7 +103,7 @@ const Contact = () => {
 
           <div className="contact-map">
             <iframe
-              src="<iframe src="https://www.google.com/maps/embed?pb=!1m28!1m12!1m3!1d1008.2277586980807!2d21.92457943456194!3d43.3355655504098!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m13!3e6!4m5!1s0x4755b1c1a70d0e8f%3A0x719d1feee9aa2b5f!2sPICCOLO%20CAFE%2C%20Bulevar%20Svetog%20Pantelejmona%2091b%2C%20%D0%9D%D0%B8%D1%88%2018000!3m2!1d43.3356837!2d21.925126499999998!4m5!1s0x4755b1c1a70d0e8f%3A0x719d1feee9aa2b5f!2sPICCOLO%20CAFE%2C%20Bulevar%20Svetog%20Pantelejmona%2091b%2C%20%D0%9D%D0%B8%D1%88%2018000!3m2!1d43.3356837!2d21.925126499999998!5e1!3m2!1ssr!2srs!4v1778665844143!5m2!1ssr!2srs"
+              src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d1008.2278164121841!2d21.92539666973866!3d43.33556207430751!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e1!3m2!1ssr!2srs!4v1778666051708!5m2!1ssr!2srs"
               width="100%"
               height="250"
               style={{ border: 0 }}
