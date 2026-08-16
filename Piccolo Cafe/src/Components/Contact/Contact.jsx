@@ -58,7 +58,7 @@ const Contact = () => {
       const result = await response.json()
 
       if (result.success) {
-        setStatusMessage('Poruka uspešno poslata! Uskoro cemo vas kontaktirati.')
+        setStatusMessage('Poruka uspešno poslata! Uskoro cemo Vas kontaktirati i obavestiti Vas o dostupnosti zeljenog termina.')
         setFormData({
           Ime: '',
           'E-mail': '',
@@ -96,8 +96,8 @@ const Contact = () => {
           </p>
 
           <ul>
-            <li><img src={mail_icon} alt="" /> info@piccolo.com</li>
-            <li><img src={phone_icon} alt="" /> +38165 684-05-12</li>
+            <li><img src={mail_icon} alt="" /> igraonica.kometa@gmail.com</li>
+            <li><img src={phone_icon} alt="" /> +38160 3406 070</li>
             <li><img src={location_icon} alt="" /> Niš, Srbija</li>
           </ul>
 
@@ -147,7 +147,7 @@ const Contact = () => {
               required
             />
 
-            <label htmlFor="datum">Datum:</label>
+            <label htmlFor="datum">Zeljeni datum:</label>
             <input
               id="datum"
               type="date"
