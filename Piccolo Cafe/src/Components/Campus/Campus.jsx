@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import './Campus.css';
 
 import gallery_1 from '../../assets/kafic-1.webp';
-import gallery_2 from '../../assets/kafic-2.webp';
+import gallery_2 from '../../assets/kafic-6.webp';
 import gallery_3 from '../../assets/kafic-3.webp';
 import gallery_4 from '../../assets/kafic-4.webp';
 import gallery_5 from '../../assets/kafic-5.webp';
